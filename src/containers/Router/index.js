@@ -3,6 +3,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "../../style/constants";
 import LoginPage from "../LoginPage";
+import Feed from "../Feed";
 
 export const routes = {
   login: '/',
@@ -27,7 +28,7 @@ function Router(props) {
         <Route path={routes.search} component={() => <div />} />
         <Route path={routes.detail} component={() => <div />} />
         <Route path={routes.cart} component={() => <div />} />
-        <Route path={routes.feed} component={() => <div />} />
+        <Route path={routes.feed} component={Feed} />
         <Route path={routes.adress} component={() => <div />} />
         <Route path={routes.signUp} component={() => <div />} />
         <Route path={routes.login} component={LoginPage} />
