@@ -2,6 +2,7 @@ import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "../../style/constants";
+import LoginPage from "../LoginPage";
 
 export const routes = {
   login: '/',
@@ -29,7 +30,7 @@ function Router(props) {
         <Route path={routes.feed} component={() => <div />} />
         <Route path={routes.adress} component={() => <div />} />
         <Route path={routes.signUp} component={() => <div />} />
-        <Route path={routes.login} component={() => <div />} />
+        <Route path={routes.login} component={LoginPage} />
       </Switch>
     </ConnectedRouter>
   );
