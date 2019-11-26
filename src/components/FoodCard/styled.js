@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import {Typography} from "@material-ui/core";
 
 
@@ -15,12 +13,12 @@ export const StyledCard = styled(Card) `
 `
 
 export const StyledCardMedia = styled(CardMedia)`
-    background-color: green;
+    background-color: black;
     flex-basis: 30%;
     height: 100%;
 `
 
-export const StyledCardContent = styled(CardContent)`
+export const CardContent = styled.div`
     flex-basis: 70%;
     height: 100%;
     padding: 0;
@@ -44,8 +42,8 @@ export const RequestQuantityWrapper = styled.div`
     border-width:thin;
     border-color: #e8222e;
     border-radius: 0px 5px 0px 5px ;
-    padding-top: 3px;
-    margin-bottom: 10px;
+    padding-top: 5px;
+    margin-bottom: 15px;
 `
 
 export const TypographyDescription = styled(Typography)`
@@ -66,11 +64,13 @@ export const AddRequestButton = styled.div`
     grid-column-end: -1;
     border-style:solid;
     border-width:thin;
-    border-color: #e8222e;
+    border-color: #000000;
     border-radius: 5px 0px 5px 0px ;
+    margin-top: 10px;
     padding-top: 3px;
-    /* perguntar soter se eu posso alinhar isso com padding/margin, ou se tem alguma solução no grid */
-    /* margin-top: 10px; */
+    &:active {     
+        border-color: #e8222e;    
+    }
 `
 
 

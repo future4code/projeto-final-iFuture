@@ -1,65 +1,93 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
-import { StyledCard, StyledCardContent, StyledCardMedia, 
+import { StyledCard, CardContent, StyledCardMedia, 
     TypographyTitle, TypographyDescription, TypographyValue,
     RequestQuantityWrapper, AddRequestButton} from "./styled";
 
 
-export const FoodCard = (props) => {
-    // Fazer as informações serem passadas via props
-    // Colocar lógica de condicional entre os botões de adicionar e remover pedidos
+export class FoodCard extends React.Component {
+    constructor (props) {
+        super (props);
+        this.state = {
+            addRequestButton: true,
+        }
+    }
 
-    return (
-        <StyledCard>
-            <StyledCardMedia
-                image="/Burger.jpg"
-                title="Food"
-            />
-            <StyledCardContent>
-                <TypographyTitle 
-                    component="h3" 
-                    variant="subtitle1" 
+    onClickAddRequestButton = () => {
+        this.setState ({addRequestButton: !this.state.addRequestButton})
+    }
+    
+    render () {
+        const renderedButton = this.state.addRequestButton ? (
+            <TypographyValue 
+                color="secondary"
+                component="p"  
+                variant="caption" 
+                align="center" 
+            >
+                adicionar
+            </TypographyValue >) : (
+                <TypographyValue
                     color="primary"
+                    component="p"
+                    variant="caption"
+                    align="center"
                 >
-                    Burger
-                </TypographyTitle >
-                <RequestQuantityWrapper>
-                    <TypographyValue 
-                        color="primary"
-                        variant="subtitle2" 
-                        align="center"
-                    >
-                        2
-                    </TypographyValue >
-                </RequestQuantityWrapper>
-                <TypographyDescription
+                    remover
+                </TypographyValue>
+            )
+
+        const renderedRequestQuantity = this.state.addRequestButton ? (<div></div>) : (
+            <RequestQuantityWrapper>
+                <TypographyValue 
+                    color="primary"
                     component="p"  
                     variant="caption" 
-                    color="initial"
+                    align="center"
                 >
-                    Descrição do burger
-                </TypographyDescription>
-                <TypographyValue 
-                    component="p"  
-                    variant="subtitle2" 
-                    color="secondary"
-                >
-                    R$ 10,00
+                    1
                 </TypographyValue >
-                <AddRequestButton>
-                    <TypographyValue 
+            </RequestQuantityWrapper>
+        )
+
+        return (
+            <StyledCard>
+                <StyledCardMedia
+                    image="/Burger.jpg"
+                    title="Food"
+                />
+                <CardContent>
+                    <TypographyTitle 
+                        component="h3" 
+                        variant="subtitle1" 
                         color="primary"
+                    >
+                        Burger
+                    </TypographyTitle >
+                    {renderedRequestQuantity}
+                    <TypographyDescription
                         component="p"  
                         variant="caption" 
-                        variant="subtitle2"
-                        align="center" 
+                        color="initial"
                     >
-                        remover
+                        {/* 60 caracteres (para validação do imput de criação de comida) */}
+                        Descrição do burger Descrição do burger Descrição Descrição Des  
+                    </TypographyDescription>
+                    <TypographyValue 
+                        component="p"  
+                        variant="subtitle2" 
+                        color="secondary"
+                    >
+                        R$ 10,00
                     </TypographyValue >
-                </AddRequestButton>
-            </StyledCardContent>
-        </StyledCard>
-    )
+                    <AddRequestButton 
+                        onClick={this.onClickAddRequestButton}
+                    >
+                        {renderedButton}
+                    </AddRequestButton>
+                </CardContent>
+            </StyledCard>
+        )
+    }
 }
 
 export default FoodCard
