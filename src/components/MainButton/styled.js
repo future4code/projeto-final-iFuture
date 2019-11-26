@@ -11,7 +11,7 @@ export const MainButton = styled.button`
     width: 100%;
     background: #e8222e;
     padding: 12px 16px;
-    margin: 0 16px;
+    margin: 8px 16px 0;
     border:none;
     font-weight: normal;
     font-size: 16px;
