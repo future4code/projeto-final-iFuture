@@ -10,6 +10,7 @@ import ProfilePage from "../Profile";
 import Cart from "../Cart";
 import SearchPage from "../SearchPage";
 import AddressPage from "../AddressPage";
+import ProfileEditPage from "../ProfileEditPage";
 
 
 
@@ -31,7 +32,7 @@ function Router(props) {
     <ConnectedRouter history={props.history}>
       <Switch>
         <Route path={routes.editAdress} component={() => <div />} />
-        <Route path={routes.editSignUp} component={() => <div />} />
+        <Route path={routes.editSignUp} component={ProfileEditPage} />
         <Route path={routes.profile} component={ProfilePage} />
         <Route path={routes.search} component={SearchPage} />
         <Route path={routes.detail} component={RestaurantDetail} />
