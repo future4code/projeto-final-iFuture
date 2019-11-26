@@ -20,9 +20,9 @@ export const NavBar = props => {
 
     return (
         <MainNavDiv>
-            <IconImg src={imgIcon.homeSelected} alt="home icon"/>
-            <IconImg src={imgIcon.cartSelected} alt="cart icon"/>
-            <IconImg src={imgIcon.profileSelected}  alt="profile icon"/>
+            <IconImg src={props.page==="home" ? imgIcon.homeSelected : imgIcon.home} alt="home icon"/>
+            <IconImg src={props.page==="cart" ? imgIcon.cartSelected : imgIcon.cart} alt="cart icon"/>
+            <IconImg src={props.page==="profile" ? imgIcon.profileSelected : imgIcon.profile}  alt="profile icon"/>
         </MainNavDiv>
     )
 }

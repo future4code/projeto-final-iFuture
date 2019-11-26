@@ -6,8 +6,10 @@ import LoginPage from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import Feed from '../Feed';
 import RestaurantDetail from '../RestaurantDetail';
+import ProfilePage from "../Profile";
 import Cart from "../Cart";
 import SearchPage from "../SearchPage";
+
 
 
 export const routes = {
@@ -29,7 +31,7 @@ function Router(props) {
       <Switch>
         <Route path={routes.editAdress} component={() => <div />} />
         <Route path={routes.editSignUp} component={() => <div />} />
-        <Route path={routes.profile} component={() => <div />} />
+        <Route path={routes.profile} component={ProfilePage} />
         <Route path={routes.search} component={() => <div />} />
         <Route path={routes.detail} component={RestaurantDetail} />
         <Route path={routes.cart} component={Cart} />
