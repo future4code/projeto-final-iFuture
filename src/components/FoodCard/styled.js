@@ -10,6 +10,7 @@ export const StyledCard = styled(Card) `
     display: flex;
     padding-bottom: 0;
     margin: 0;
+    margin-top: 8px;
 `
 
 export const StyledCardMedia = styled(CardMedia)`
