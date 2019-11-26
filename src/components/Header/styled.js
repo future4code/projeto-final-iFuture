@@ -22,9 +22,11 @@ export const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
 `;
 
 export const Title = styled.p`
 	font-size: 16px;
 	letter-spacing: -0.39px;
+  color: #000000;
 `;
