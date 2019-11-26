@@ -12,6 +12,7 @@ const LoginPage = (props) => {
         <div>
         <PopUp/>
         <MainButtonComponent onButtonClick={sayHello} title="Registrar"/>
+
         </div>
     )
 }

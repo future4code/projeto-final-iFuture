@@ -23,6 +23,7 @@ export const MainStyled = styled.div`
   font-family: 'Roboto', sans-serif;
 `
 
+
 const generateClassName = createGenerateClassName();
 const jss = create({
   ...jssPreset(),
@@ -47,7 +48,10 @@ export const App = () => (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <MainStyled>
-          <Router history={history} />
+  
+         <Router history={history} />
+
+          
         </MainStyled>
       </MuiThemeProvider>
     </JssProvider>

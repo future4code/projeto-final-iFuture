@@ -4,6 +4,9 @@ import { Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "../../style/constants";
 import LoginPage from "../LoginPage";
 import SignUpPage from "../SignUpPage";
+import Feed from '../Feed';
+import RestaurantDetail from '../RestaurantDetail';
+
 
 export const routes = {
   login: '/',
@@ -26,9 +29,9 @@ function Router(props) {
         <Route path={routes.editSignUp} component={() => <div />} />
         <Route path={routes.profile} component={() => <div />} />
         <Route path={routes.search} component={() => <div />} />
-        <Route path={routes.detail} component={() => <div />} />
+        <Route path={routes.detail} component={RestaurantDetail} />
         <Route path={routes.cart} component={() => <div />} />
-        <Route path={routes.feed} component={() => <div />} />
+        <Route path={routes.feed} component={Feed} />
         <Route path={routes.adress} component={() => <div />} />
         <Route path={routes.signUp} component={SignUpPage} />
         <Route path={routes.login} component={LoginPage} />
