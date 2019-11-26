@@ -11,7 +11,6 @@ export const MainNavDiv = styled.div`
     bottom:0;
     background-color:white;
 `
-
 export const IconImg = styled.img`
     cursor:pointer;
 `

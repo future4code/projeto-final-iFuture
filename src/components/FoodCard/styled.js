@@ -10,6 +10,8 @@ export const StyledCard = styled(Card) `
     display: flex;
     padding-bottom: 0;
     margin: 0;
+    margin-top: 8px;
+    border: solid 1px #b8b8b8;
 `
 
 export const StyledCardMedia = styled(CardMedia)`
@@ -17,7 +19,6 @@ export const StyledCardMedia = styled(CardMedia)`
     flex-basis: 30%;
     height: 100%;
 `
-
 export const CardContent = styled.div`
     flex-basis: 70%;
     height: 100%;
