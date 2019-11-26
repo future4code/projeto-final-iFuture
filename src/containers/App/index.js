@@ -46,7 +46,6 @@ export const App = () => (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <MainStyled>
-          <h1>oi</h1>
           <Router history={history} />
         </MainStyled>
       </MuiThemeProvider>

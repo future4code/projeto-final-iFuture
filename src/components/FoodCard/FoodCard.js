@@ -1,9 +1,14 @@
 import React from "react";
-import { StyledCard, StyledCardContent, StyledCardMedia } from "./styled";
-import Typography from '@material-ui/core/Typography';
+import { Typography } from "@material-ui/core";
+import { StyledCard, StyledCardContent, StyledCardMedia, 
+    TypographyTitle, TypographyDescription, TypographyValue,
+    RequestQuantityWrapper, AddRequestButton} from "./styled";
 
 
 export const FoodCard = (props) => {
+    // Fazer as informações serem passadas via props
+    // Colocar lógica de condicional entre os botões de adicionar e remover pedidos
+
     return (
         <StyledCard>
             <StyledCardMedia
@@ -12,24 +17,46 @@ export const FoodCard = (props) => {
             />
             <StyledCardContent>
                 <TypographyTitle 
-                    component="h5" 
-                    variant="h5" 
+                    component="h3" 
+                    variant="subtitle1" 
                     color="primary"
                 >
                     Burger
                 </TypographyTitle >
-                <TypographyDescription 
-                    variant="subtitle1" 
-                    color="secondary"
+                <RequestQuantityWrapper>
+                    <TypographyValue 
+                        color="primary"
+                        variant="subtitle2" 
+                        align="center"
+                    >
+                        2
+                    </TypographyValue >
+                </RequestQuantityWrapper>
+                <TypographyDescription
+                    component="p"  
+                    variant="caption" 
+                    color="initial"
                 >
                     Descrição do burger
                 </TypographyDescription>
                 <TypographyValue 
-                    variant="subtitle1" 
+                    component="p"  
+                    variant="subtitle2" 
                     color="secondary"
                 >
                     R$ 10,00
                 </TypographyValue >
+                <AddRequestButton>
+                    <TypographyValue 
+                        color="primary"
+                        component="p"  
+                        variant="caption" 
+                        variant="subtitle2"
+                        align="center" 
+                    >
+                        remover
+                    </TypographyValue >
+                </AddRequestButton>
             </StyledCardContent>
         </StyledCard>
     )
