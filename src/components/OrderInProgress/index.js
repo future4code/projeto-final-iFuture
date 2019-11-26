@@ -12,7 +12,13 @@ import {
 } from "./styled";
 
 const OrderInProgress = ({
-	order
+	 order = {
+    totalPrice: 20,
+    restaurantName: "Habibs",
+    createdAt: 1574659218053,
+    expiresAt: 1574662818053,
+  },
+
 }) => {
   return (
     <Wrapper>
@@ -24,9 +30,6 @@ const OrderInProgress = ({
 					<SubTotal>SUBTOTAL R${order.totalPrice},00</SubTotal>
         </TextWrapper>
       </Rectangle>
-      <ContainerTeste>
-        <p>cópia navbar do footer</p>
-      </ContainerTeste>
     </Wrapper>
   );
 };

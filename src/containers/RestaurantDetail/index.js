@@ -1,20 +1,55 @@
 import React from 'react';
 import Header from '../../components/Header';
-import { PrincipalDish, SideDish } from './styled';
+
+import {
+  Wrapper,
+  PrincipalDish,
+  SideDish,
+  CardDiv,
+  CardTitle,
+  CardDatesContainers,
+  CardDeliveryPriceRight,
+  CardDeliveryTimeLeft,
+  CardDeliveryAdress,
+  CardDeliveryCategory,
+  CardImage,
+  WrapperPrincipalDish,
+  WrapperSideDish } from './styled';
+
+import ImgTeste from '../../assets/imagem-teste.jpg';
+import FoodCard from '../../components/FoodCard/FoodCard';
 
 const RestaurantDetail = () => {
   return (
-    <div>
+    <Wrapper>
       <Header title={'Restaurante'} isArrowBackVisible={true} />
+      <CardDiv>
+        <CardImage src={ImgTeste} />
+        <CardDatesContainers>
+          <CardTitle>Bullguer Vila Madalena</CardTitle>
+          <CardDeliveryCategory>Burguer</CardDeliveryCategory>
+          <div>
+            <CardDeliveryTimeLeft>30 - 50 min</CardDeliveryTimeLeft>
+            <CardDeliveryPriceRight>Frete R$6,00</CardDeliveryPriceRight>
+          </div>
+          <CardDeliveryAdress>
+            R. Fradique Coutinho, 1136 - Vila Madalena
+          </CardDeliveryAdress>
+        </CardDatesContainers>
+      </CardDiv>
+
       <PrincipalDish>Principais</PrincipalDish>
-      <div>
-        <h4>Pratos Principais</h4>
-      </div>
+      <WrapperPrincipalDish>
+        <FoodCard />
+        <FoodCard />
+      </WrapperPrincipalDish>
+
       <SideDish>Acompanhamentos</SideDish>
-      <div>
-        <h4>Acompanhamentos</h4>
-      </div>
-    </div>
+      <WrapperSideDish>
+        <FoodCard />
+        <FoodCard />
+      </WrapperSideDish>
+    </Wrapper>
   );
 };
 
