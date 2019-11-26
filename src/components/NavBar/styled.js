@@ -9,6 +9,7 @@ export const MainNavDiv = styled.div`
     height:50px;
     position: fixed;
     bottom:0;
+    background-color:white;
 `
 
 export const IconImg = styled.img`
