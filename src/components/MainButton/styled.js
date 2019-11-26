@@ -5,6 +5,7 @@ export const ButtonDiv = styled.div`
     display:flex;
     justify-content:center;
     width:100%;
+    
 `
 
 export const MainButton = styled.button`
@@ -16,7 +17,7 @@ export const MainButton = styled.button`
     font-weight: normal;
     font-size: 16px;
     color: #000000;
-
+    border-radius: 2px;
     :focus{
         outline:none;
     }

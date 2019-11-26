@@ -7,6 +7,7 @@ import SignUpPage from "../SignUpPage";
 import Feed from '../Feed';
 import RestaurantDetail from '../RestaurantDetail';
 import Cart from "../Cart";
+import SearchPage from "../SearchPage";
 
 
 export const routes = {
@@ -33,7 +34,7 @@ function Router(props) {
         <Route path={routes.detail} component={RestaurantDetail} />
         <Route path={routes.cart} component={Cart} />
         <Route path={routes.feed} component={Feed} />
-        <Route path={routes.adress} component={() => <div />} />
+        <Route path={routes.adress} component={SearchPage} />
         <Route path={routes.signUp} component={SignUpPage} />
         <Route path={routes.login} component={LoginPage} />
       </Switch>

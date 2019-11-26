@@ -6,6 +6,10 @@ export const MainCardDiv = styled.div`
     display:flex;
     flex-direction: column;
     align-items:center;
+    &:last-child {
+        margin-bottom: 58px;
+    }
+    
 `
 
 export const CardDiv = styled.div`
