@@ -16,11 +16,13 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { generateReducers } from "../../reducers";
 import { routerMiddleware } from "connected-react-router";
 import styled from 'styled-components'
+import "rsuite/dist/styles/rsuite-default.css"
 
 export const MainStyled = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
   font-family: 'Roboto', sans-serif;
 `
+
 
 const generateClassName = createGenerateClassName();
 const jss = create({
@@ -46,7 +48,10 @@ export const App = () => (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <MainStyled>
-          <Router history={history} />
+  
+         <Router history={history} />
+
+
         </MainStyled>
       </MuiThemeProvider>
     </JssProvider>
