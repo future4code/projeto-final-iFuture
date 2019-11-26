@@ -3,7 +3,12 @@ import Header from '../../components/Header';
 import FilterByCategory from '../../components/FilterByCategory/index';
 import NavBar from '../../components/NavBar';
 
-import { SearchBarTest, WrapperFixedComponents } from './styled';
+import {
+  WrapperFixedComponents,
+  IconSearch,
+  BaseInput,
+  ContainerSearch
+} from './styled';
 import RestaurantCard from '../../components/RestaurantCard';
 
 const Feed = () => {
@@ -11,7 +16,10 @@ const Feed = () => {
     <Fragment>
       <WrapperFixedComponents>
         <Header title={'Ifuture'} isArrowBackVisible={false} />
-        <SearchBarTest />
+        <ContainerSearch>
+          <IconSearch />
+          <BaseInput placeholder="Restaurante" />
+        </ContainerSearch>
         <FilterByCategory />
       </WrapperFixedComponents>
       <div>
