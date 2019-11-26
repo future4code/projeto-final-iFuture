@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-
-export const Wrapper = styled.div`
-  
-`
+export const Wrapper = styled.div``;
 export const PrincipalDish = styled.p`
   font-size: 16px;
   letter-spacing: -0.39px;
@@ -27,9 +24,7 @@ export const CardDiv = styled.div`
   flex-direction: column;
 `;
 
-export const CardImage = styled.img`
- 
-`;
+export const CardImage = styled.img``;
 
 export const CardDatesContainers = styled.div`
   display: flex;
@@ -43,7 +38,6 @@ export const CardDatesContainers = styled.div`
 export const CardTitle = styled.p`
   color: #e8222e;
   font-size: 16px;
-  
 `;
 
 export const CardDeliveryCategory = styled.p`
@@ -56,31 +50,30 @@ export const CardDeliveryPriceRight = styled.span`
   color: #b8b8b8;
   font-size: 16px;
   height: 18px;
-  
+  margin: 0 0 0 18px;
 `;
 
 export const CardDeliveryTimeLeft = styled.span`
   color: #b8b8b8;
   font-size: 16px;
   height: 18px;
-  
+  margin: 0 18px 0 0;
 `;
 
 export const CardDeliveryAdress = styled.p`
   color: #b8b8b8;
   font-size: 16px;
   height: 18px;
-  
 `;
 
 export const WrapperPrincipalDish = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const WrapperSideDish = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
