@@ -5,7 +5,7 @@ export const HorizontalScroll = styled.div`
 	height: 42px;
 	flex-wrap: nowrap;
   overflow-x: auto;
-	overflow-scrolling: touch;
+	/* overflow-scrolling: touch; */
 	margin-top: 8px;
 
 	&::-webkit-scrollbar {
@@ -18,7 +18,7 @@ export const HorizontalScroll = styled.div`
 `
 export const Button = styled.button`
 	border: none;
-	background-color: #fff;
+	background-color: #FAFAFA;
 	font-size: 16px;
 	letter-spacing: -0.39px;
 	margin: 0 16px;
