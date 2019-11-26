@@ -9,7 +9,8 @@ export const StyledCard = styled(Card) `
     height: 112px;
     display: flex;
     padding-bottom: 0;
-    margin-bottom: 8px;
+    margin: 0;
+    margin-top: 8px;
     border: solid 1px #b8b8b8;
 `
 
