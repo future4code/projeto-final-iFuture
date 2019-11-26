@@ -49,8 +49,7 @@ const ProfilePage = (props) => {
             <HistoryContainer>
                 {listOrders.length > 0 ? listOrders : <HistoryText>Você não realizou nenhum pedido</HistoryText>}
             </HistoryContainer>
-
-            <NavBar page="profile" />
+            <NavBar/>
         </div>
     )
 }
