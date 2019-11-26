@@ -9,6 +9,7 @@ export class FoodCard extends React.Component {
         super (props);
         this.state = {
             addRequestButton: true,
+            borderColor: "black",
         }
     }
 
@@ -52,7 +53,7 @@ export class FoodCard extends React.Component {
         return (
             <StyledCard>
                 <StyledCardMedia
-                    image="/Burger.jpg"
+                    image="https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg"
                     title="Food"
                 />
                 <CardContent>
@@ -81,6 +82,7 @@ export class FoodCard extends React.Component {
                     </TypographyValue >
                     <AddRequestButton 
                         onClick={this.onClickAddRequestButton}
+                        borderColor={this.state.borderColor}
                     >
                         {renderedButton}
                     </AddRequestButton>

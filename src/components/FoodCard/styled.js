@@ -64,13 +64,10 @@ export const AddRequestButton = styled.div`
     grid-column-end: -1;
     border-style:solid;
     border-width:thin;
-    border-color: #000000;
+    border-color: ${props => props.borderColor};
     border-radius: 5px 0px 5px 0px ;
     margin-top: 10px;
     padding-top: 3px;
-    &:active {     
-        border-color: #e8222e;    
-    }
 `
 
 
