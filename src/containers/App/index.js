@@ -51,7 +51,7 @@ export const App = () => (
   
          <Router history={history} />
 
-          
+
         </MainStyled>
       </MuiThemeProvider>
     </JssProvider>
