@@ -8,7 +8,7 @@ export const ImgLogo = styled.img `
     margin-top: 24px;
 `
 
-export const ContainerSignUpPage = styled.div `
+export const ContainerSignUpPage = styled.form `
     display: flex;
     align-items: center;
     flex-direction: column;
