@@ -4,6 +4,7 @@ import { StyledCard, CardContent, StyledCardMedia,
     RequestQuantityWrapper, AddRequestButton} from "./styled";
 
 
+
 export const FoodCard = (props) => {
 
     const [nameRequestButton, setNameRequestButton] = useState("adicionar")
@@ -17,6 +18,7 @@ export const FoodCard = (props) => {
             setBorderColor("#e8222e")
             setColor("primary")
             setRequestQuantity(true)
+            // props.showPopUpAddCart()
         } else {
             setNameRequestButton("adicionar")
             setBorderColor("black")
@@ -33,7 +35,7 @@ export const FoodCard = (props) => {
                 variant="caption" 
                 align="center"
             >
-                {props.foodInfo.requestQuantity}
+                {props.amount}
             </TypographyValue >
         </RequestQuantityWrapper>
     ) : (<div></div>)

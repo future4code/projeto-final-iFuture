@@ -16,8 +16,9 @@ import {
   WrapperSideDish } from './styled';
 import ImgTeste from '../../assets/imagem-teste.jpg';
 import FoodCard from '../../components/FoodCard/';
+import { connect } from 'react-redux'
 
-const RestaurantDetail = () => {
+const RestaurantDetail = (props) => {
   return (
     <Wrapper>
       <Header title={'Restaurante'} isArrowBackVisible={true} />
@@ -38,7 +39,9 @@ const RestaurantDetail = () => {
 
       <PrincipalDish>Principais</PrincipalDish>
       <WrapperPrincipalDish>
-        <FoodCard />
+        <FoodCard 
+          amount={props.amount}
+        />
         <FoodCard />
       </WrapperPrincipalDish>
 
@@ -51,4 +54,8 @@ const RestaurantDetail = () => {
   );
 };
 
-export default RestaurantDetail;
+const mapStateToProps = (state) => ({
+  amount: state.requests.actualAmount
+})
+
+export default connect(mapStateToProps, null)(RestaurantDetail)

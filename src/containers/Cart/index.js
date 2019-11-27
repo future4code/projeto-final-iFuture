@@ -10,15 +10,17 @@ import FoodCard from "../../components/FoodCard";
 import NavBar from "../../components/NavBar";
 import Header from "../../components/Header";
 import MainButtonComponent from "../../components/MainButton";
+import { connect } from 'react-redux'
 
 export const Cart = (props) => {
     const foodInfo = {
-        requestQuantity: 1,
         foodsName: "Burger",
         foodsDescription: "Descrição do burger Descrição do burger Descrição Descrição Des",
         foodsPrice: 10,
     }
 
+    const mainButtonName = "Confirmar"
+    
     return (
         <CartWrapper>
             <Header 
@@ -52,7 +54,11 @@ export const Cart = (props) => {
                     30 - 50 min
                 </WaitingTime>
             </RestaurantDetailContainer>
-            <FoodCard foodInfo={foodInfo}/>
+            <FoodCard 
+                foodInfo={foodInfo}
+                amount={props.amount}
+                // showPopUpUpAddCart={showPopUpUpAddCart}  
+            />
             <FoodCard foodInfo={foodInfo}/>
             <PriceContainer>
                 <FreightPrice
@@ -98,11 +104,18 @@ export const Cart = (props) => {
                     control={<Checkbox  value="card" />}
                     label="Cartão de crédito"
                 />
-                <MainButtonComponent />
+                <MainButtonComponent 
+                    title={mainButtonName}
+                />
             </PaymentContainer>
+            <MainButtonComponent />
             <NavBar />
         </CartWrapper>  
     )
 }
 
-export default Cart
+const mapStateToProps = (state) => ({
+    amount: state.requests.actualAmount
+})
+
+export default connect(mapStateToProps, null)(Cart)

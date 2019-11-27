@@ -13,7 +13,6 @@ export const PopUp = props => {
 
   const addAmountToCart = () => {
     const { setAmount } = props
-
     setAmount(amount)
   }
 
