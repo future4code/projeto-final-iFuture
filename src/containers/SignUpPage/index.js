@@ -19,7 +19,7 @@ class SignUpPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            nameUser: "",
+            name: "",
             email: "",
             cpf: "",
             password: "",
@@ -43,27 +43,23 @@ class SignUpPage extends React.Component {
         this.setState({ cpf: formattedCPF })
     };
 
-    validatePassword = () => {
+    validatePassword = (event) => {
+        event.preventDefault()
+
         const password = this.state.password
         const passwordConfirm = this.state.passwordConfirm
-
-        // if(password.length < 6) {
-        //     //retornar mensagem de erro e para o campo de senha
-        // } caso tenha mais que seis confirmar se as senhas são iguais
 
         if (password === passwordConfirm ) {
             this.handleSubmit()
         }
         else
             console.log("erro") //voltar para o campo senha
+
+        this.clearNewTaskValue();
     };
 
     clearNewTaskValue = () => {
-        this.setState({ name: "" });
-        this.setState({ email: "" });
-        this.setState({ cpf: "" });
-        this.setState({ password: "" });
-        this.setState({ passwordConfirm: "" });
+        this.setState({ name: "", email: "", cpf: "", password: "", passwordConfirm: ""});
     };
 
 
@@ -73,7 +69,6 @@ class SignUpPage extends React.Component {
 
         this.props.createdUser(name, email, cpf, password)
 
-        this.clearNewTaskValue();
     };
 
     handleClickShowPassword = () => {
@@ -85,7 +80,7 @@ class SignUpPage extends React.Component {
     };
 
     handleFieldChangeName = (event) => {
-        this.setState({ nameUser: event.target.value })
+        this.setState({ name: event.target.value })
     }
 
     handleFieldChangeEmail = (event) => {
@@ -102,7 +97,7 @@ class SignUpPage extends React.Component {
 
     render() {
 
-        const { nameUser, email, password, passwordConfirm } = this.setState;
+        const { name, cpf, email, password, passwordConfirm } = this.state;
 
         return (
 
@@ -127,7 +122,7 @@ class SignUpPage extends React.Component {
                         onChange={this.handleFieldChangeName}
                         name="name"
                         type="text"
-                        value={nameUser}
+                        value={name}
                     />
 
                     <InputEmail
@@ -156,10 +151,11 @@ class SignUpPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
+
                         onChange={this.handleFieldChangeCPF}
                         name="cpf"
                         type="text"
-                        value={this.state.cpf}
+                        value={cpf}
                         title="O CPF deve conter esse formato 000.000.000-00"
                     />
 
@@ -185,11 +181,13 @@ class SignUpPage extends React.Component {
                                 </InputAdornment>
                             ),
                         }}
+                        inputProps={{
+                            minlength: "6"
+                        }}
                         onChange={this.handleFieldChangePassword}
                         name="passwordSignUp"
                         type={this.state.showPassword ? 'text' : 'password'}
                         value={password}
-                        pattern="^.{6,}$"
                         title="A senha deve ter no mínimo 6 caracteres"
                     />
 
@@ -222,7 +220,7 @@ class SignUpPage extends React.Component {
                         value={passwordConfirm}
                     />
 
-                    <MainButtonComponent title="Criar" ty onButtonClick={this.validatePassword} />
+                    <MainButtonComponent title="Criar" />
 
                 </ContainerSignUpPage>
             </div>
