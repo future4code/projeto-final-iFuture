@@ -32,11 +32,11 @@ function Router(props) {
         <Route path={routes.editAdress} component={() => <div />} />
         <Route path={routes.editSignUp} component={() => <div />} />
         <Route path={routes.profile} component={ProfilePage} />
-        <Route path={routes.search} component={() => <div />} />
+        <Route path={routes.search} component={SearchPage} />
         <Route path={routes.detail} component={RestaurantDetail} />
         <Route path={routes.cart} component={Cart} />
         <Route path={routes.feed} component={Feed} />
-        <Route path={routes.adress} component={SearchPage} />
+        <Route path={routes.adress} component={() => <div />} />
         <Route path={routes.signUp} component={SignUpPage} />
         <Route path={routes.login} component={LoginPage} />
       </Switch>
