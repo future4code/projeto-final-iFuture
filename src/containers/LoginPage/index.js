@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { routes } from "../Router";
 import { push } from "connected-react-router";
@@ -119,5 +119,3 @@ export default connect(
     null,
     mapDispatchToProps) 
     (LoginPage);
-
-
