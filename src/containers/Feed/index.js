@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import Header from '../../components/Header';
 import FilterByCategory from '../../components/FilterByCategory/index';
 import NavBar from '../../components/NavBar';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { routes } from '../Router';
+import OrderInProgress from '../../components/OrderInProgress'
 
 import {
   WrapperFixedComponents,
@@ -89,6 +90,7 @@ class Feed extends React.Component {
               );
             })}
         </div>
+        {this.props.actualOrder ? <OrderInProgress order={this.props.actualOrder}/> : null}
         <NavBar />
       </Fragment>
     );
@@ -106,4 +108,5 @@ const mapDispatchToProps = dispatch => ({
   getAllRestaurants: () => dispatch(fecthRestaurants()),
   goToDetailRestaurant: () => dispatch(push(routes.detail))
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

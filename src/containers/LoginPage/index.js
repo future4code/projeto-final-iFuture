@@ -1,22 +1,121 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { routes } from "../Router";
+import { push } from "connected-react-router";
+import { login } from "../../actions/auth";
 import MainButtonComponent from '../../components/MainButton'
-import PopUp from "../../components/PopUpAddCart";
+import { ImgLogo, ContainerLoginPage, TextEnter, InputEmail, InputPassword, TextRegisterUser, GoToSignUp} from './styled';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 
-const LoginPage = (props) => {
+const imgIcon = {
+    logo: require('../../assets/logo.svg'),
+};
 
-    const sayHello=()=>{
-        console.log("hello")
+class LoginPage extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            email: "",
+            password: "",
+            showPassword: false,
+        }
     }
 
-    return (
-        <div>
-        <PopUp/>
-        <MainButtonComponent onButtonClick={sayHello} title="Registrar"/>
+    onClickLogin = () => {
+        const { email, password } = this.state;
 
-        </div>
-    )
+        this.props.doLogin(email, password);
+    }
+
+    handleFieldChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
+
+    handleClickShowPassword = () => {
+        this.setState(state => ({ showPassword: !state.showPassword }));
+    };
+
+    render() {
+
+        const { email, password } = this.setState;
+
+        return(
+            
+            <div>
+                <ContainerLoginPage>
+                    <ImgLogo src={imgIcon.logo} alt="logo" />
+
+                    <TextEnter>Entrar</TextEnter>
+
+                    <InputEmail
+                        required
+                        id="outlined-required-name"
+                        label="E-mail"
+                        placeholder="email@email.com"
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.handleFieldChange}
+                        name="email"
+                        type="email"
+                        value={email}
+                    />
+
+                    <InputPassword
+                        required
+                        label="Senha"
+                        placeholder="Mínimo 6 caracteres"
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                    >
+                                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                
+                            ),
+                           
+                        }}
+                        onChange={this.handleFieldChange}
+                        name="password"
+                        type={this.state.showPassword ? 'text' : 'password'}
+                        value={password}
+                        id="password"
+                    />
+
+                    <MainButtonComponent title="Entrar" onButtonClick={this.onClickLogin} />
+
+                    <TextRegisterUser>Não possui cadastro? <GoToSignUp onClick={this.props.goToSignUp}>Clique aqui.</GoToSignUp></TextRegisterUser>
+
+                </ContainerLoginPage>
+            </div>
+        );
+    };
+};
+
+function mapDispatchToProps (dispatch) {
+    return {
+        doLogin: (email, password) => dispatch(login(email,password)),
+        goToSignUp: () => dispatch(push(routes.signUp))
+    }
 }
 
-export default LoginPage
-
-
+export default connect(
+    null,
+    mapDispatchToProps) 
+    (LoginPage);

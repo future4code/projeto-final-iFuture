@@ -5,12 +5,12 @@ import Edit from '@material-ui/icons/Edit';
 import NavBar from '../../components/NavBar';
 import CartCard from "../../components/CartCard";
 import { connect } from 'react-redux'
-import { getProfile, getOrders } from '../../actions/'
+import { getProfile, getOrdersHistory } from '../../actions'
 
 const ProfilePage = (props) => {
 
     useEffect(() => {
-        props.getOrders()
+        props.getOrdersHistory()
         props.getProfile()
     }, [])
 
@@ -19,9 +19,9 @@ const ProfilePage = (props) => {
     const listOrders = allOrders.map((order, index) => {
         return <CartCard
             key={index}
-            title="Bullguer Vila Madalena"
-            date="23 outubro 2019"
-            price="67,00"
+            title={order.restaurantName}
+            date={order.createdAt}
+            price={order.totalPrice}
         />
     })
 
@@ -49,8 +49,7 @@ const ProfilePage = (props) => {
             <HistoryContainer>
                 {listOrders.length > 0 ? listOrders : <HistoryText>Você não realizou nenhum pedido</HistoryText>}
             </HistoryContainer>
-
-            <NavBar page="profile" />
+            <NavBar/>
         </div>
     )
 }
@@ -61,7 +60,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getOrders: () => dispatch(getOrders()),
+    getOrdersHistory: () => dispatch(getOrdersHistory()),
     getProfile: () => dispatch(getProfile()),
 })
 

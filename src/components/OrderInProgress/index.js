@@ -1,6 +1,6 @@
 import React from "react";
 
-import { 
+import {
 	Wrapper,
 	ContainerTeste,
 	Rectangle,
@@ -11,27 +11,19 @@ import {
 	TextWrapper
 } from "./styled";
 
-const OrderInProgress = ({
-	 order = {
-    totalPrice: 20,
-    restaurantName: "Habibs",
-    createdAt: 1574659218053,
-    expiresAt: 1574662818053,
-  },
-
-}) => {
-  return (
-    <Wrapper>
-      <Rectangle>
-				<StyledClock/>
+const OrderInProgress = (props) => {
+	return (
+		<Wrapper>
+			<Rectangle>
+				<StyledClock />
 				<TextWrapper>
-        	<StatusOrder>Pedido em andamento</StatusOrder>
-					<RestaurantName>{order.restaurantName}</RestaurantName>
-					<SubTotal>SUBTOTAL R${order.totalPrice},00</SubTotal>
-        </TextWrapper>
-      </Rectangle>
-    </Wrapper>
-  );
+					<StatusOrder>Pedido em andamento</StatusOrder>
+					<RestaurantName>{props.order.restaurantName}</RestaurantName>
+					<SubTotal>SUBTOTAL R${props.order.totalPrice.toFixed(2)}</SubTotal>
+				</TextWrapper>
+			</Rectangle>
+		</Wrapper>
+	);
 };
 
 export default OrderInProgress;

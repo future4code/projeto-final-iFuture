@@ -6,18 +6,19 @@ import LoginPage from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import Feed from '../Feed';
 import RestaurantDetail from '../RestaurantDetail';
-import ProfilePage from "../Profile";
+import ProfilePage from "../ProfilePage";
 import Cart from "../Cart";
 import SearchPage from "../SearchPage";
-
-
+import AddressPage from "../AddressPage";
+import ProfileEditPage from "../ProfileEditPage";
+import EditAddressPage from "../EditAddress";
 
 export const routes = {
   login: '/',
   signUp: '/signup',
-  adress: '/signup/adress',
+  address: '/signup/address',
   feed: '/feed',
-  search: '/search',
+  search: '/search',  
   detail: '/detail/restaurant',
   cart: '/cart',
   profile: '/profile',
@@ -29,14 +30,14 @@ function Router(props) {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
-        <Route path={routes.editAdress} component={() => <div />} />
-        <Route path={routes.editSignUp} component={() => <div />} />
-        <Route path={routes.profile} component={ProfilePage} />
-        <Route path={routes.search} component={SearchPage} />
-        <Route path={routes.detail} component={RestaurantDetail} />
-        <Route path={routes.cart} component={Cart} />
-        <Route path={routes.feed} component={Feed} />
-        <Route path={routes.adress} component={() => <div />} />
+        <PrivateRoute path={routes.editAdress} component={EditAddressPage} />
+        <PrivateRoute path={routes.editSignUp} component={ProfileEditPage} />
+        <PrivateRoute path={routes.profile} component={ProfilePage} />
+        <PrivateRoute path={routes.search} component={SearchPage} />
+        <PrivateRoute path={routes.detail} component={RestaurantDetail} />
+        <PrivateRoute path={routes.cart} component={Cart} />
+        <PrivateRoute path={routes.feed} component={Feed} />
+        <Route path={routes.address} component={AddressPage} />
         <Route path={routes.signUp} component={SignUpPage} />
         <Route path={routes.login} component={LoginPage} />
       </Switch>
