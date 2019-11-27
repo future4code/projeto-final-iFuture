@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { routes } from "../Router";
 import { push } from "connected-react-router";
-import { login } from "../../actions/auth"
+import { login } from "../../actions/auth";
 import MainButtonComponent from '../../components/MainButton'
 import { ImgLogo, ContainerLoginPage, TextEnter, InputEmail, InputPassword, TextRegisterUser, GoToSignUp} from './styled';
 import Visibility from '@material-ui/icons/Visibility';
@@ -70,7 +70,6 @@ class LoginPage extends React.Component {
 
                     <InputPassword
                         required
-                        id="outlined-required-password"
                         label="Senha"
                         placeholder="Mínimo 6 caracteres"
                         margin="normal"
@@ -96,7 +95,7 @@ class LoginPage extends React.Component {
                         name="password"
                         type={this.state.showPassword ? 'text' : 'password'}
                         value={password}
-                        id="password_field"
+                        id="password"
                     />
 
                     <MainButtonComponent title="Entrar" onButtonClick={this.onClickLogin} />
