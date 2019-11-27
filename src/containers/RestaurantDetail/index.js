@@ -13,27 +13,33 @@ import {
   CardDeliveryCategory,
   CardImage,
   WrapperPrincipalDish,
-  WrapperSideDish } from './styled';
-import ImgTeste from '../../assets/imagem-teste.jpg';
+  WrapperSideDish
+} from './styled';
+
 import FoodCard from '../../components/FoodCard/';
+import { connect } from 'react-redux';
 
-
-const RestaurantDetail = () => {
+const RestaurantDetail = props => {
+  const { currentRestaurant } = props;
   return (
     <Wrapper>
       <Header title={'Restaurante'} isArrowBackVisible={true} />
       <CardDiv>
-        <CardImage src={ImgTeste} />
+        <CardImage src={currentRestaurant.logoUrl} />
         <CardDatesContainers>
-          <CardTitle>Bullguer Vila Madalena</CardTitle>
-          <CardDeliveryCategory>Burguer</CardDeliveryCategory>
+          <CardTitle>{currentRestaurant.name}</CardTitle>
+          <CardDeliveryCategory>
+            {currentRestaurant.category}
+          </CardDeliveryCategory>
           <div>
-            <CardDeliveryTimeLeft>30 - 50 min</CardDeliveryTimeLeft>
-            <CardDeliveryPriceRight>Frete R$6,00</CardDeliveryPriceRight>
+            <CardDeliveryTimeLeft>
+              {currentRestaurant.deliveryTime}min
+            </CardDeliveryTimeLeft>
+            <CardDeliveryPriceRight>
+              Frete R${currentRestaurant.shipping},00
+            </CardDeliveryPriceRight>
           </div>
-          <CardDeliveryAdress>
-            R. Fradique Coutinho, 1136 - Vila Madalena
-          </CardDeliveryAdress>
+          <CardDeliveryAdress>{currentRestaurant.address}</CardDeliveryAdress>
         </CardDatesContainers>
       </CardDiv>
 
@@ -52,4 +58,11 @@ const RestaurantDetail = () => {
   );
 };
 
-export default RestaurantDetail;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    currentRestaurant: state.restaurants.selectRestaurant
+  };
+};
+
+export default connect(mapStateToProps, null)(RestaurantDetail);

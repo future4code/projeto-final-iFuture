@@ -5,7 +5,7 @@ import NavBar from '../../components/NavBar';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { routes } from '../Router';
-import OrderInProgress from '../../components/OrderInProgress'
+import OrderInProgress from '../../components/OrderInProgress';
 
 import {
   WrapperFixedComponents,
@@ -14,7 +14,10 @@ import {
   ContainerSearch
 } from './styled';
 import RestaurantCard from '../../components/RestaurantCard';
-import { fecthRestaurants } from '../../actions/fetchRestaurants';
+import {
+  fecthRestaurants,
+  setSelectedRestaurantDetails
+} from '../../actions/fetchRestaurants';
 
 class Feed extends React.Component {
   constructor(props) {
@@ -64,7 +67,7 @@ class Feed extends React.Component {
               if (restaurant.category === this.state.selectedFilter) {
                 return (
                   <RestaurantCard
-                    onClick={this.props.goToDetailRestaurant}
+                    onClick={() => {this.props.getRestaurantDetail(restaurant.id)}}
                     key={restaurant.id}
                     logoUrl={restaurant.logoUrl}
                     name={restaurant.name}
@@ -80,7 +83,7 @@ class Feed extends React.Component {
             allRestaurants.map(restaurant => {
               return (
                 <RestaurantCard
-                  onClick={this.props.goToDetailRestaurant}
+                  onClick={() => {this.props.getRestaurantDetail(restaurant.id)}}
                   key={restaurant.id}
                   logoUrl={restaurant.logoUrl}
                   name={restaurant.name}
@@ -90,7 +93,9 @@ class Feed extends React.Component {
               );
             })}
         </div>
-        {this.props.actualOrder ? <OrderInProgress order={this.props.actualOrder}/> : null}
+        {this.props.actualOrder ? (
+          <OrderInProgress order={this.props.actualOrder} />
+        ) : null}
         <NavBar />
       </Fragment>
     );
@@ -106,7 +111,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   goToSearchPage: () => dispatch(push(routes.search)),
   getAllRestaurants: () => dispatch(fecthRestaurants()),
-  goToDetailRestaurant: () => dispatch(push(routes.detail))
+  getRestaurantDetail: restaurantId =>
+    dispatch(setSelectedRestaurantDetails(restaurantId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);
