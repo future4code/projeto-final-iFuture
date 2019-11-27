@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const urlBase = 'https://us-central1-missao-newton.cloudfunctions.net/iFuture'
 
-export const setOrders = (orders) => ({
+export const setOrdersHistory = (orders) => ({
     type: 'SET_ORDERS',
     payload: {
         orders
@@ -23,7 +23,14 @@ export const setProfile = (profile) => ({
     }
 })
 
-export const getOrders = () => async (dispatch) => {
+export const setActiveOrder = (activeOrder) => ({
+    type: 'SET_ACTIVE_ORDER',
+    payload: {
+        activeOrder
+    }
+})
+
+export const getOrdersHistory = () => async (dispatch) => {
     const token = window.localStorage.getItem("token");
 
     const response = await axios.get(`${urlBase}/orders/history`, {
@@ -33,7 +40,7 @@ export const getOrders = () => async (dispatch) => {
 
     })
 
-    dispatch(setOrders(response.data.orders))
+    dispatch(setOrdersHistory(response.data.orders))
 }
 
 export const getProfile = () => async (dispatch) => {
@@ -47,4 +54,17 @@ export const getProfile = () => async (dispatch) => {
     })
 
     dispatch(setProfile(response.data.user))
+}
+
+export const getActiveOrder = () => async (dispatch) => {
+    const token = window.localStorage.getItem("token");
+
+    const response = await axios.get(`${urlBase}/active-order`, {
+        headers: {
+            auth: token
+        }
+
+    })
+
+    dispatch(setActiveOrder(response.data.order))
 }

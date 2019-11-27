@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
 		margin-top: 0;
 		margin-bottom: 0;
 	}
+  margin-bottom:50px;
 `;
 
 export const Rectangle = styled.div`
@@ -47,12 +48,14 @@ export const StatusOrder = styled.p`
 export const RestaurantName = styled.p`
   font-size: 16px;
   letter-spacing: -0.39px;
+  color: #000000
 `;
 
 export const SubTotal = styled.p`
 	font-size: 16px;
 	font-weight: 700;
 	letter-spacing: -0.39px;
+  color: #000000
 `
 export const StyledClock = styled(Clock)`
 	color: #fff;

@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import Header from '../../components/Header';
 import FilterByCategory from '../../components/FilterByCategory/index';
 import NavBar from '../../components/NavBar';
-
+import OrderInProgress from '../../components/OrderInProgress'
 import {
   WrapperFixedComponents,
   IconSearch,
@@ -10,8 +10,15 @@ import {
   ContainerSearch
 } from './styled';
 import RestaurantCard from '../../components/RestaurantCard';
+import { getActiveOrder } from '../../actions'
+import { connect } from 'react-redux'
 
-const Feed = () => {
+const Feed = (props) => {
+
+  useEffect(() => {
+    props.getActiveOrder()
+}, [])
+
   return (
     <Fragment>
       <WrapperFixedComponents>
@@ -30,9 +37,18 @@ const Feed = () => {
         <RestaurantCard />
         <RestaurantCard />
       </div>
+      {props.actualOrder ? <OrderInProgress order={props.actualOrder}/> : null}
       <NavBar />
     </Fragment>
   );
 };
 
-export default Feed;
+const mapStateToProps =(state) =>({
+  actualOrder: state.requests.actualOrder
+})
+
+const mapDispatchToProps =(dispatch) =>({
+  getActiveOrder: ()=>dispatch(getActiveOrder())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

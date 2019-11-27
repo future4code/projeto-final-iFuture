@@ -13,8 +13,6 @@ export const AdressContainer = styled.div`
     display:flex;
     flex-direction:column; 
     background:#eeeeee; 
-    box-sizing: border-box;
-    overflow:hidden;
 `
 
 export const HistoryTitleContainer = styled.div`
@@ -39,28 +37,27 @@ export const ProfileFlexDiv = styled.div`
 `
 
 export const ProfileText = styled.span`
-    height: 18px;
+    min-height: 18px;
     font-size: 16px;
     color: #000000;
     margin-bottom:8px;
 `
 
 export const AddressText = styled.span`
-    height: 18px;
+    min-height: 18px;
     font-size: 16px;
     color: #000000;
-    margin-bottom:16px;
 `
 
 export const HistoryText = styled.span`
-    height: 18px;
+    min-height: 18px;
     font-size: 16px;
     color: #000000;
     margin-top:28px;
 `
 
 export const AdressTitle = styled.span`
-    height: 18px;
+    min-height: 18px;
     font-size: 16px;
     color: #000000;
     margin-bottom:8px;

@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainButtonComponent from '../../components/MainButton'
 import PopUp from "../../components/PopUpAddCart";
+import { getProfile} from '../../actions'
+import { connect } from "react-redux";
 
 const LoginPage = (props) => {
 
-    const sayHello=()=>{
-        console.log("hello")
-    }
+    useEffect(() => {
+        props.getProfile()
+    }, [])
 
     return (
         <div>
         <PopUp/>
-        <MainButtonComponent onButtonClick={sayHello} title="Registrar"/>
+        <MainButtonComponent onButtonClick="{sayHello}" title="Registrar"/>
 
         </div>
     )
 }
 
-export default LoginPage
+const mapDispatchToProps = dispatch => ({
+    getProfile: () => dispatch(getProfile()),
+})
+
+export default connect(null, mapDispatchToProps) (LoginPage)
 
 
