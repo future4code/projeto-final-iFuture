@@ -17,7 +17,7 @@ import {
   WrapperSideDish } from './styled';
 
 import ImgTeste from '../../assets/imagem-teste.jpg';
-import FoodCard from '../../components/FoodCard/FoodCard';
+import FoodCard from '../../components/FoodCard/';
 
 const RestaurantDetail = () => {
   return (
