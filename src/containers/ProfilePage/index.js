@@ -5,7 +5,7 @@ import Edit from '@material-ui/icons/Edit';
 import NavBar from '../../components/NavBar';
 import CartCard from "../../components/CartCard";
 import { connect } from 'react-redux'
-import { getProfile, getOrders } from '../../actions/'
+import { getProfile, getOrders } from '../../actions'
 
 const ProfilePage = (props) => {
 

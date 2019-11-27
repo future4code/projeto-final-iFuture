@@ -6,7 +6,7 @@ import LoginPage from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import Feed from '../Feed';
 import RestaurantDetail from '../RestaurantDetail';
-import ProfilePage from "../Profile";
+import ProfilePage from "../ProfilePage";
 import Cart from "../Cart";
 import SearchPage from "../SearchPage";
 
