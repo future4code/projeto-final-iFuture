@@ -9,6 +9,13 @@ export const setOrders = (orders) => ({
     }
 })
 
+export const setAmount = (amount) => ({
+    type: 'SET_AMOUNT',
+    payload: {
+        amount
+    }
+})
+
 export const setProfile = (profile) => ({
     type: 'SET_PROFILE',
     payload: {
