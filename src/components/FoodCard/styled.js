@@ -27,10 +27,14 @@ export const CardContent = styled.div`
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(7, 1fr);
     padding-left: 16px;
+
 `
 
 export const TypographyTitle = styled(Typography)`
     padding-top: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     grid-row-start: 1;
     grid-column-start: 1;
     grid-column-end: 6;
@@ -51,12 +55,14 @@ export const TypographyDescription = styled(Typography)`
     grid-row-start: 2;  
     grid-column-start: 1;
     grid-column-end: 7;
+    margin-top: 8px;
 `
 
 export const TypographyValue = styled(Typography)`
     grid-row-start: 3;
     grid-column-start: 1;
     grid-column-end: 4;
+    margin-top: 4px;
 `
 
 export const AddRequestButton = styled.div`
