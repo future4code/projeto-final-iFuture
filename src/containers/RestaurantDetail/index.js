@@ -57,10 +57,7 @@ const RestaurantDetail = (props) => {
   ) : (
     <div></div>
   )
-
-
-
-const RestaurantDetail = props => {
+  
   const { currentRestaurant } = props;
 
   return (
@@ -112,9 +109,10 @@ const RestaurantDetail = props => {
   );
 };
 
+
 const mapStateToProps = (state) => ({
   amount: state.requests.actualAmount,
   currentRestaurant: state.restaurants.selectRestaurant
 })
 
-export default connect(mapStateToProps, null)(RestaurantDetail)
+export default connect (mapStateToProps, null) (RestaurantDetail)

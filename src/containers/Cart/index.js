@@ -107,7 +107,6 @@ export const Cart = (props) => {
                     title={mainButtonName}
                 />
             </PaymentContainer>
-            <MainButtonComponent />
             <NavBar />
         </CartWrapper>  
     )
