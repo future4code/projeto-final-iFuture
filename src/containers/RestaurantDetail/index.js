@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../../components/Header';
 import {
   Wrapper,
@@ -17,10 +17,50 @@ import {
 import ImgTeste from '../../assets/imagem-teste.jpg';
 import FoodCard from '../../components/FoodCard/';
 import { connect } from 'react-redux'
+import PopUp from '../../components/PopUpAddCart';
 
 const RestaurantDetail = (props) => {
+  const foodInfo = [
+    {
+      name: "Coxinha",
+      description: "Descrição do burger Descrição do burger Descrição Descrição Des",
+      price: 10,
+      id: 1,
+      photoUrl: "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
+      category: "Salgado"
+    },
+    {
+      name: "Esfirra",
+      description: "Descrição do burger Descrição do burger Descrição Descrição Des",
+      price: 10,
+      id: 2,
+      photoUrl: "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
+      category: "Salgado"
+    }
+  ]
+
+  const [showedPopUp, setShowedPopUp] = useState(false)
+  const [actualId, setActualId] = useState("")
+
+  const showPopUpAddCart = (id) => {
+      if (showedPopUp === false) {
+        setShowedPopUp(true)
+        setActualId(id)
+      } else {setShowedPopUp(false)} 
+  }
+
+  const popUp = showedPopUp ? (
+    <PopUp
+      showPopUpAddCart={showPopUpAddCart}
+      actualId={actualId}
+    />
+  ) : (
+    <div></div>
+  )
+
   return (
     <Wrapper>
+      {popUp}
       <Header title={'Restaurante'} isArrowBackVisible={true} />
       <CardDiv>
         <CardImage src={ImgTeste} />
@@ -36,19 +76,28 @@ const RestaurantDetail = (props) => {
           </CardDeliveryAdress>
         </CardDatesContainers>
       </CardDiv>
-
       <PrincipalDish>Principais</PrincipalDish>
       <WrapperPrincipalDish>
-        <FoodCard 
-          amount={props.amount}
-        />
-        <FoodCard />
+        {foodInfo.map((food, index) => {
+          return <FoodCard 
+            key={index}
+            foodInfo={food}
+            showPopUpAddCart={showPopUpAddCart}
+            amount={food.id === props.amount.itemId ? (props.amount.amount) : (null)}
+          />
+        })}
       </WrapperPrincipalDish>
 
       <SideDish>Acompanhamentos</SideDish>
       <WrapperSideDish>
-        <FoodCard />
-        <FoodCard />
+        <FoodCard 
+          foodInfo={foodInfo} 
+          showPopUpAddCart={showPopUpAddCart}
+        />
+        <FoodCard 
+          foodInfo={foodInfo} 
+          showPopUpAddCart={showPopUpAddCart}
+        />
       </WrapperSideDish>
     </Wrapper>
   );

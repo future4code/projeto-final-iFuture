@@ -18,7 +18,7 @@ export const routes = {
   adress: '/signup/adress',
   feed: '/feed',
   search: '/search',
-  detail: '/detail/restaurant',
+  detail: '/detail',
   cart: '/cart',
   profile: '/profile',
   editSignUp: '/edit/signup',

@@ -56,8 +56,7 @@ export const Cart = (props) => {
             </RestaurantDetailContainer>
             <FoodCard 
                 foodInfo={foodInfo}
-                amount={props.amount}
-                // showPopUpUpAddCart={showPopUpUpAddCart}  
+                amount={props.amount}  
             />
             <FoodCard foodInfo={foodInfo}/>
             <PriceContainer>
