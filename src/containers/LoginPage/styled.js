@@ -39,4 +39,8 @@ export const TextRegisterUser = styled.div `
     margin-top: 28px;  
 `
 
+export const GoToSignUp = styled.a `
+    color: black;
+`
+
 

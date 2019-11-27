@@ -1,7 +1,10 @@
 import React from "react";
-import Header from '../../components/Header';
+import { connect } from "react-redux";
+import { routes } from "../Router";
+import { push } from "connected-react-router";
+import { login } from "../../actions/auth"
 import MainButtonComponent from '../../components/MainButton'
-import { ImgLogo, ContainerLoginPage, TextEnter, InputEmail, InputPassword, TextRegisterUser} from './styled';
+import { ImgLogo, ContainerLoginPage, TextEnter, InputEmail, InputPassword, TextRegisterUser, GoToSignUp} from './styled';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -15,16 +18,32 @@ class LoginPage extends React.Component {
     constructor() {
         super();
         this.state = {
+            email: "",
+            password: "",
             showPassword: false,
-            showPasswordConfirm: false,
         }
     }
+
+    onClickLogin = () => {
+        const { email, password } = this.state;
+
+        this.props.doLogin(email, password);
+    }
+
+    handleFieldChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
 
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
     };
 
     render() {
+
+        const { email, password } = this.setState;
+
         return(
             
             <div>
@@ -43,6 +62,10 @@ class LoginPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        onChange={this.handleFieldChange}
+                        name="email"
+                        type="email"
+                        value={email}
                     />
 
                     <InputPassword
@@ -65,13 +88,20 @@ class LoginPage extends React.Component {
                                         {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
+                
                             ),
+                           
                         }}
+                        onChange={this.handleFieldChange}
+                        name="password"
+                        type={this.state.showPassword ? 'text' : 'password'}
+                        value={password}
+                        id="password_field"
                     />
 
-                    <MainButtonComponent title="Criar" />
+                    <MainButtonComponent title="Entrar" onButtonClick={this.onClickLogin} />
 
-                    <TextRegisterUser>Não possui cadastro? Clique aqui.</TextRegisterUser>
+                    <TextRegisterUser>Não possui cadastro? <GoToSignUp onClick={this.props.goToSignUp}>Clique aqui.</GoToSignUp></TextRegisterUser>
 
                 </ContainerLoginPage>
             </div>
@@ -79,6 +109,16 @@ class LoginPage extends React.Component {
     };
 };
 
-export default LoginPage;
+function mapDispatchToProps (dispatch) {
+    return {
+        doLogin: (email, password) => dispatch(login(email,password)),
+        goToSignUp: () => dispatch(push(routes.signUp))
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps) 
+    (LoginPage);
 
 
