@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import {
   Wrapper,
@@ -16,48 +16,66 @@ import {
   WrapperSideDish
 } from './styled';
 import FoodCard from '../../components/FoodCard/';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import PopUp from '../../components/PopUpAddCart';
 
-const RestaurantDetail = (props) => {
+const RestaurantDetail = props => {
   const foodInfo = [
     {
-      name: "Coxinha",
-      description: "Descrição do burger Descrição do burger Descrição Descrição Des",
+      name: 'Coxinha',
+      description:
+        'Descrição do burger Descrição do burger Descrição Descrição Des',
       price: 10,
       id: 1,
-      photoUrl: "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
-      category: "Salgado"
+      photoUrl:
+        'https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg',
+      category: 'Salgado'
     },
     {
-      name: "Esfirra",
-      description: "Descrição do burger Descrição do burger Descrição Descrição Des",
+      name: 'Esfirra',
+      description:
+        'Descrição do burger Descrição do burger Descrição Descrição Des',
       price: 10,
       id: 2,
-      photoUrl: "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
-      category: "Salgado"
+      photoUrl:
+        'https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg',
+      category: 'Salgado'
     }
-  ]
+  ];
 
-  const [showedPopUp, setShowedPopUp] = useState(false)
-  const [actualId, setActualId] = useState("")
+  const [showedPopUp, setShowedPopUp] = useState(false);
+  const [actualId, setActualId] = useState('');
+  const [actualCategories, setActualCategories] = useState([]);
 
-  const showPopUpAddCart = (id) => {
-      if (showedPopUp === false) {
-        setShowedPopUp(true)
-        setActualId(id)
-      } else {setShowedPopUp(false)} 
-  }
+  useEffect(() => {
+    const categoriesArray = [...actualCategories];
+    if (props.currentRestaurant.products) {
+      for (let product of props.currentRestaurant.products) {
+        if (categoriesArray.indexOf(product.category) === -1) {
+          categoriesArray.push(product.category);
+          setActualCategories(categoriesArray);
+        }
+      }
+    }
+  }, []);
+
+  console.log(actualCategories);
+
+  const showPopUpAddCart = id => {
+    if (showedPopUp === false) {
+      setShowedPopUp(true);
+      setActualId(id);
+    } else {
+      setShowedPopUp(false);
+    }
+  };
 
   const popUp = showedPopUp ? (
-    <PopUp
-      showPopUpAddCart={showPopUpAddCart}
-      actualId={actualId}
-    />
+    <PopUp showPopUpAddCart={showPopUpAddCart} actualId={actualId} />
   ) : (
     <div></div>
-  )
-  
+  );
+
   const { currentRestaurant } = props;
 
   return (
@@ -82,37 +100,38 @@ const RestaurantDetail = (props) => {
           <CardDeliveryAdress>{currentRestaurant.address}</CardDeliveryAdress>
         </CardDatesContainers>
       </CardDiv>
-      <PrincipalDish>Principais</PrincipalDish>
-      <WrapperPrincipalDish>
-        {foodInfo.map((food, index) => {
-          return <FoodCard 
-            key={index}
-            foodInfo={food}
-            showPopUpAddCart={showPopUpAddCart}
-            amount={food.id === props.amount.itemId ? (props.amount.amount) : (null)}
-          />
-        })}
-      </WrapperPrincipalDish>
-
-      <SideDish>Acompanhamentos</SideDish>
-      <WrapperSideDish>
-        <FoodCard 
-          foodInfo={foodInfo} 
-          showPopUpAddCart={showPopUpAddCart}
-        />
-        <FoodCard 
-          foodInfo={foodInfo} 
-          showPopUpAddCart={showPopUpAddCart}
-        />
-      </WrapperSideDish>
+      {actualCategories.map((category, i) => {
+        return (
+          <div>
+            <PrincipalDish key={i}>{category}</PrincipalDish>;
+            <WrapperPrincipalDish>
+              {currentRestaurant.products.map((product, index) => {
+                if (product.category === category) {
+                  return (
+                    <FoodCard
+                      key={index}
+                      foodInfo={product}
+                      showPopUpAddCart={showPopUpAddCart}
+                      amount={
+                        product.id === props.amount.itemId
+                          ? props.amount.amount
+                          : null
+                      }
+                    />
+                  );
+                }
+              })}
+            </WrapperPrincipalDish>
+          </div>
+        );
+      })}
     </Wrapper>
   );
 };
 
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   amount: state.requests.actualAmount,
   currentRestaurant: state.restaurants.selectRestaurant
-})
+});
 
-export default connect (mapStateToProps, null) (RestaurantDetail)
+export default connect(mapStateToProps, null)(RestaurantDetail);

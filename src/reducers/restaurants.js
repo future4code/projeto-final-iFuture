@@ -1,6 +1,7 @@
 const initialState = {
   allRestaurants: [],
-  selectRestaurant: {}
+  selectRestaurant: {},
+  
 };
 
 const restaurants = (state = initialState, action) => {

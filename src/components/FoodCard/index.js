@@ -41,8 +41,8 @@ export const FoodCard = (props) => {
     return (
         <StyledCard>
             <StyledCardMedia
-                image="https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg"
-                title="Food"
+                image={props.foodInfo.photoUrl}
+                
             />
             <CardContent>
                 <TypographyTitle 
@@ -66,7 +66,7 @@ export const FoodCard = (props) => {
                     variant="subtitle2" 
                     color="secondary"
                 >
-                    R$ {props.foodInfo.price}
+                    R$ {props.foodInfo.price.toFixed(2)}
                 </TypographyValue >
                 <AddRequestButton 
                     onClick={onClickAddRequestButton}
