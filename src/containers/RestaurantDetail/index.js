@@ -17,6 +17,7 @@ import {
 import ImgTeste from '../../assets/imagem-teste.jpg';
 import FoodCard from '../../components/FoodCard/';
 
+
 const RestaurantDetail = () => {
   return (
     <Wrapper>
