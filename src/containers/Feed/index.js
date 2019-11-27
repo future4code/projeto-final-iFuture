@@ -63,6 +63,7 @@ class Feed extends React.Component {
               if (restaurant.category === this.state.selectedFilter) {
                 return (
                   <RestaurantCard
+                    onClick={this.props.goToDetailRestaurant}
                     key={restaurant.id}
                     logoUrl={restaurant.logoUrl}
                     name={restaurant.name}
@@ -78,6 +79,7 @@ class Feed extends React.Component {
             allRestaurants.map(restaurant => {
               return (
                 <RestaurantCard
+                  onClick={this.props.goToDetailRestaurant}
                   key={restaurant.id}
                   logoUrl={restaurant.logoUrl}
                   name={restaurant.name}
@@ -94,7 +96,6 @@ class Feed extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     allRestaurants: state.restaurants.allRestaurants
   };
@@ -102,6 +103,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   goToSearchPage: () => dispatch(push(routes.search)),
-  getAllRestaurants: () => dispatch(fecthRestaurants())
+  getAllRestaurants: () => dispatch(fecthRestaurants()),
+  goToDetailRestaurant: () => dispatch(push(routes.detail))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

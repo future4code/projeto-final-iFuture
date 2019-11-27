@@ -5,17 +5,17 @@ import { routes } from '../../containers/Router';
 
 import { Container, Title, StyledArrow } from './styled';
 
-const Header = ({ title, isArrowBackVisible }, props) => {
+const Header = ({ title, isArrowBackVisible, goBackPage }) => {
   return (
     <Container>
-      {isArrowBackVisible && <StyledArrow onClick={props.goBackPage} />}
+      {isArrowBackVisible && <StyledArrow onClick={goBackPage} />}
       <Title>{title}</Title>
     </Container>
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  goBackPage: () => dispatch(push(routes.feed))
+  goBackPage: () => dispatch(goBack())
 });
 
 export default connect(null, mapDispatchToProps)(Header);
