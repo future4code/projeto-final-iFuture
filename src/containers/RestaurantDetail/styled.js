@@ -24,7 +24,10 @@ export const CardDiv = styled.div`
   flex-direction: column;
 `;
 
-export const CardImage = styled.img``;
+export const CardImage = styled.img`
+  height: 120px;
+  object-fit: contain;
+`;
 
 export const CardDatesContainers = styled.div`
   display: flex;
