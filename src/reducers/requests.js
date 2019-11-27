@@ -1,7 +1,8 @@
 const initialState = {
   allOrders: [],
   actualProfile: "",
-  actualAmount: [],
+  actualAmount: 0,
+  actualOrder: null,
 }
 
 const requests = (state = initialState, action) => {
@@ -14,6 +15,8 @@ const requests = (state = initialState, action) => {
       const newActualAmount = [...state.actualAmount]
       newActualAmount.push(action.payload.amount)
       return { ...state, actualAmount: newActualAmount }
+    case "SET_ACTIVE_ORDER":
+      return { ...state, actualOrder: action.payload.activeOrder }
     default:
       return state
   }

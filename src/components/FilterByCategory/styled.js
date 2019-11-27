@@ -28,7 +28,7 @@ export const Button = styled.button`
 	color: black;
 	
 	&:focus {
-		color: #e8222e;
+		color: ${props => props.color};
 		outline: none;
 	}
 
