@@ -1,4 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
+import { routes } from "../containers/Router";
+import { push } from "connected-react-router";
 
 const urlBase = 'https://us-central1-missao-newton.cloudfunctions.net/iFuture'
 
@@ -48,3 +50,14 @@ export const getProfile = () => async (dispatch) => {
 
     dispatch(setProfile(response.data.user))
 }
+
+export const signUp = (name, email, cpf, password) => async dispatch => {
+    const body = { name, email, cpf, password}
+
+    const response = await axios.post(
+        `${urlBase}/signup`, body
+    );
+    window.localStorage.setItem('token', response.data.token)
+    dispatch(push(routes.address));
+}
+

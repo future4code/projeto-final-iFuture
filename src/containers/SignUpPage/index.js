@@ -1,4 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { routes } from "../Router";
+import { push } from "connected-react-router";
+import { signUp } from "../../actions";
 import Header from '../../components/Header';
 import MainButtonComponent from '../../components/MainButton'
 import { ImgLogo, ContainerSignUpPage, TextRegister, InputName, InputEmail, InputCPF, InputPassword, InputPasswordConfirm } from './styled';
@@ -15,10 +19,29 @@ class SignUpPage extends React.Component {
     constructor() {
         super();
         this.state = {
+            name: "",
+            email: "",
+            cpf: "",
+            password: "",
+            passwordConfirm: "",
             showPassword: false,
             showPasswordConfirm: false,
         }
     }
+
+    onClickRegister = () => {
+        const { name, email, cpf, password } = this.state;
+
+        this.props.doSignUp(name, email, cpf, password);
+    }
+
+    handleFieldChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
+
+
 
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
@@ -29,6 +52,9 @@ class SignUpPage extends React.Component {
     };
 
     render() {
+        
+        const { name, email,cpf, password, passwordConfirm } = this.setState;
+
         return(
             
             <div>
@@ -49,6 +75,11 @@ class SignUpPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        onChange={this.handleFieldChange}
+                        name="name"
+                        type="name"
+                        value={name}
+
                     />
 
                     <InputEmail
@@ -61,6 +92,10 @@ class SignUpPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        onChange={this.handleFieldChange}
+                        name="email"
+                        type="email"
+                        value={email}
                     />
 
                     <InputCPF
@@ -73,11 +108,15 @@ class SignUpPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        onChange={this.handleFieldChange}
+                        name="cpf"
+                        type="cpf"
+                        value={cpf}
                     />
 
                     <InputPassword
                         required
-                        id="outlined-required-password"
+                        id="outlined-required-password-signUp"
                         label="Senha"
                         placeholder="Mínimo 6 caracteres"
                         margin="normal"
@@ -97,6 +136,10 @@ class SignUpPage extends React.Component {
                                 </InputAdornment>
                             ),
                         }}
+                        onChange={this.handleFieldChange}
+                        name="passwordSignUp"
+                        type={this.state.showPassword ? 'text' : 'password'}
+                        value={password}
                     />
 
 
@@ -122,6 +165,10 @@ class SignUpPage extends React.Component {
                                 </InputAdornment>
                             ),
                         }}
+                        onChange={this.handleFieldChange}
+                        name="passwordConfirm"
+                        type={this.state.showPassword ? 'text' : 'password'}
+                        value={passwordConfirm}
                     />
 
                     <MainButtonComponent title="Criar" />
@@ -131,6 +178,16 @@ class SignUpPage extends React.Component {
         );
     };
 };
-export default SignUpPage
+
+function mapDispatchToProps (dispatch) {
+    return {
+        doSignUp: (name, email, cpf, password) => dispatch(signUp(name, email, cpf, password)),
+        goToAddress: () => dispatch(push(routes.adress))
+    }
+}
+export default connect(
+    null,
+    mapDispatchToProps)
+    (SignUpPage);
 
 

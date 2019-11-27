@@ -9,6 +9,9 @@ import RestaurantDetail from '../RestaurantDetail';
 import ProfilePage from "../ProfilePage";
 import Cart from "../Cart";
 import SearchPage from "../SearchPage";
+import AddressPage from "../AddressPage";
+import ProfileEditPage from "../ProfileEditPage";
+import EditAddressPage from "../EditAddress";
 
 
 
@@ -17,7 +20,7 @@ export const routes = {
   signUp: '/signup',
   adress: '/signup/adress',
   feed: '/feed',
-  search: '/search',
+  search: '/search',  
   detail: '/detail/restaurant',
   cart: '/cart',
   profile: '/profile',
@@ -29,14 +32,14 @@ function Router(props) {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
-        <Route path={routes.editAdress} component={() => <div />} />
-        <Route path={routes.editSignUp} component={() => <div />} />
+        <Route path={routes.editAdress} component={EditAddressPage} />
+        <Route path={routes.editSignUp} component={ProfileEditPage} />
         <Route path={routes.profile} component={ProfilePage} />
-        <Route path={routes.search} component={() => <div />} />
+        <Route path={routes.search} component={SearchPage} />
         <Route path={routes.detail} component={RestaurantDetail} />
         <Route path={routes.cart} component={Cart} />
         <Route path={routes.feed} component={Feed} />
-        <Route path={routes.adress} component={SearchPage} />
+        <Route path={routes.adress} component={AddressPage} />
         <Route path={routes.signUp} component={SignUpPage} />
         <Route path={routes.login} component={LoginPage} />
       </Switch>
