@@ -13,8 +13,16 @@ export const PopUp = props => {
 
   const addAmountToCart = () => {
     const { setAmount } = props
+    const amountItem = {
+      amount: amount, itemId: props.actualId
+    }
+    
+    setAmount(amountItem)
+    closePopUp()
+  }
 
-    setAmount(amount)
+  const closePopUp = () => {
+    props.showPopUpAddCart()
   }
 
   const numbers = [

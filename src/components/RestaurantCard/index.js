@@ -11,7 +11,7 @@ import {
 
 const RestaurantCard = props => {
   return (
-    <MainCardDiv>
+    <MainCardDiv onClick={props.onClick}>
       <CardDiv>
         <CardImage src={props.logoUrl} />
         <CardTitle>{props.name}</CardTitle>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { push, goBack } from 'connected-react-router';
-import { routes } from '../../containers/Router';
-
+import {  goBack } from 'connected-react-router';
 import { Container, Title, StyledArrow } from './styled';
 
 const Header = ({ title, isArrowBackVisible, goBackPage }) => {

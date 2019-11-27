@@ -7,7 +7,7 @@ export const PrincipalDish = styled.p`
   color: #000000;
   border-bottom: 1px solid black;
   padding-bottom: 8px;
-  margin: 8px 16px;
+  margin: 8px 16px 0;
 `;
 export const SideDish = styled.p`
   font-size: 16px;
@@ -24,7 +24,10 @@ export const CardDiv = styled.div`
   flex-direction: column;
 `;
 
-export const CardImage = styled.img``;
+export const CardImage = styled.img`
+  height: 120px;
+  object-fit: fill;
+`;
 
 export const CardDatesContainers = styled.div`
   display: flex;
@@ -49,21 +52,21 @@ export const CardDeliveryCategory = styled.p`
 export const CardDeliveryPriceRight = styled.span`
   color: #b8b8b8;
   font-size: 16px;
-  height: 18px;
+  min-height: 18px;
   margin: 0 0 0 18px;
 `;
 
 export const CardDeliveryTimeLeft = styled.span`
   color: #b8b8b8;
   font-size: 16px;
-  height: 18px;
+  min-height: 18px;
   margin: 0 18px 0 0;
 `;
 
 export const CardDeliveryAdress = styled.p`
   color: #b8b8b8;
   font-size: 16px;
-  height: 18px;
+  min-height: 18px;
 `;
 
 export const WrapperPrincipalDish = styled.div`

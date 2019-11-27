@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import {
   Wrapper,
@@ -13,43 +13,125 @@ import {
   CardDeliveryCategory,
   CardImage,
   WrapperPrincipalDish,
-  WrapperSideDish } from './styled';
-import ImgTeste from '../../assets/imagem-teste.jpg';
+  WrapperSideDish
+} from './styled';
 import FoodCard from '../../components/FoodCard/';
+import { connect } from 'react-redux';
+import PopUp from '../../components/PopUpAddCart';
 
+const RestaurantDetail = props => {
+  const foodInfo = [
+    {
+      name: 'Coxinha',
+      description:
+        'Descrição do burger Descrição do burger Descrição Descrição Des',
+      price: 10,
+      id: 1,
+      photoUrl:
+        'https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg',
+      category: 'Salgado'
+    },
+    {
+      name: 'Esfirra',
+      description:
+        'Descrição do burger Descrição do burger Descrição Descrição Des',
+      price: 10,
+      id: 2,
+      photoUrl:
+        'https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg',
+      category: 'Salgado'
+    }
+  ];
 
-const RestaurantDetail = () => {
+  const [showedPopUp, setShowedPopUp] = useState(false);
+  const [actualId, setActualId] = useState('');
+  const [actualCategories, setActualCategories] = useState([]);
+
+  useEffect(() => {
+    const categoriesArray = [...actualCategories];
+    if (props.currentRestaurant.products) {
+      for (let product of props.currentRestaurant.products) {
+        if (categoriesArray.indexOf(product.category) === -1) {
+          categoriesArray.push(product.category);
+          setActualCategories(categoriesArray);
+        }
+      }
+    }
+  }, []);
+
+  console.log(actualCategories);
+
+  const showPopUpAddCart = id => {
+    if (showedPopUp === false) {
+      setShowedPopUp(true);
+      setActualId(id);
+    } else {
+      setShowedPopUp(false);
+    }
+  };
+
+  const popUp = showedPopUp ? (
+    <PopUp showPopUpAddCart={showPopUpAddCart} actualId={actualId} />
+  ) : (
+    <div></div>
+  );
+
+  const { currentRestaurant } = props;
+
   return (
     <Wrapper>
+      {popUp}
       <Header title={'Restaurante'} isArrowBackVisible={true} />
       <CardDiv>
-        <CardImage src={ImgTeste} />
+        <CardImage src={currentRestaurant.logoUrl} />
         <CardDatesContainers>
-          <CardTitle>Bullguer Vila Madalena</CardTitle>
-          <CardDeliveryCategory>Burguer</CardDeliveryCategory>
+          <CardTitle>{currentRestaurant.name}</CardTitle>
+          <CardDeliveryCategory>
+            {currentRestaurant.category}
+          </CardDeliveryCategory>
           <div>
-            <CardDeliveryTimeLeft>30 - 50 min</CardDeliveryTimeLeft>
-            <CardDeliveryPriceRight>Frete R$6,00</CardDeliveryPriceRight>
+            <CardDeliveryTimeLeft>
+              {currentRestaurant.deliveryTime}min
+            </CardDeliveryTimeLeft>
+            <CardDeliveryPriceRight>
+              Frete R${currentRestaurant.shipping},00
+            </CardDeliveryPriceRight>
           </div>
-          <CardDeliveryAdress>
-            R. Fradique Coutinho, 1136 - Vila Madalena
-          </CardDeliveryAdress>
+          <CardDeliveryAdress>{currentRestaurant.address}</CardDeliveryAdress>
         </CardDatesContainers>
       </CardDiv>
-
-      <PrincipalDish>Principais</PrincipalDish>
-      <WrapperPrincipalDish>
-        <FoodCard />
-        <FoodCard />
-      </WrapperPrincipalDish>
-
-      <SideDish>Acompanhamentos</SideDish>
-      <WrapperSideDish>
-        <FoodCard />
-        <FoodCard />
-      </WrapperSideDish>
+      {actualCategories.map((category, i) => {
+        return (
+          <div>
+            <PrincipalDish key={i}>{category}</PrincipalDish>;
+            <WrapperPrincipalDish>
+              {currentRestaurant.products.map((product, index) => {
+                if (product.category === category) {
+                  return (
+                    <FoodCard
+                      key={index}
+                      foodInfo={product}
+                      showPopUpAddCart={showPopUpAddCart}
+                      amount={
+                        product.id === props.amount.itemId
+                          ? props.amount.amount
+                          : null
+                      }
+                    />
+                  );
+                }
+              })}
+            </WrapperPrincipalDish>
+          </div>
+        );
+      })}
     </Wrapper>
   );
 };
 
-export default RestaurantDetail;
+const mapStateToProps = state => ({
+  amount: state.requests.actualAmount,
+  currentRestaurant: state.restaurants.selectRestaurant
+});
+
+export default connect(mapStateToProps, null)(RestaurantDetail);

@@ -3,7 +3,6 @@ import { StyledCard, CardContent, StyledCardMedia,
     TypographyTitle, TypographyDescription, TypographyValue,
     RequestQuantityWrapper, AddRequestButton} from "./styled";
 
-
 export const FoodCard = (props) => {
 
     const [nameRequestButton, setNameRequestButton] = useState("adicionar")
@@ -17,6 +16,7 @@ export const FoodCard = (props) => {
             setBorderColor("#e8222e")
             setColor("primary")
             setRequestQuantity(true)
+            props.showPopUpAddCart(props.foodInfo.id)
         } else {
             setNameRequestButton("adicionar")
             setBorderColor("black")
@@ -33,7 +33,7 @@ export const FoodCard = (props) => {
                 variant="caption" 
                 align="center"
             >
-                {props.foodInfo.requestQuantity}
+                {props.amount}
             </TypographyValue >
         </RequestQuantityWrapper>
     ) : (<div></div>)
@@ -41,8 +41,8 @@ export const FoodCard = (props) => {
     return (
         <StyledCard>
             <StyledCardMedia
-                image="https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg"
-                title="Food"
+                image={props.foodInfo.photoUrl}
+                
             />
             <CardContent>
                 <TypographyTitle 
@@ -50,7 +50,7 @@ export const FoodCard = (props) => {
                     variant="subtitle1" 
                     color="primary"
                 >
-                    {props.foodInfo.foodsName}
+                    {props.foodInfo.name}
                 </TypographyTitle >
                 {showRequestQuantity}
                 <TypographyDescription
@@ -59,14 +59,14 @@ export const FoodCard = (props) => {
                     color="initial"
                 >
                     {/* 60 caracteres (para validação do imput de criação de comida) */}
-                    {props.foodInfo.foodsDescription}
+                    {props.foodInfo.description}
                 </TypographyDescription>
                 <TypographyValue 
                     component="p"  
                     variant="subtitle2" 
                     color="secondary"
                 >
-                    R$ {props.foodInfo.foodsPrice}
+                    R$ {props.foodInfo.price.toFixed(2)}
                 </TypographyValue >
                 <AddRequestButton 
                     onClick={onClickAddRequestButton}

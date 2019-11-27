@@ -62,6 +62,7 @@ export const FinalPriceContainer = styled(Typography)`
 export const PaymentContainer = styled.div`
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 58px;
     display: flex;
     flex-direction: column;
     padding: 0 8%;
