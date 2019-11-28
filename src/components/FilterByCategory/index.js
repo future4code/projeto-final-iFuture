@@ -1,26 +1,47 @@
-import React from "react";
-import { HorizontalScroll, Button } from "./styled";
+import React, { useState, useEffect } from 'react';
+import { HorizontalScroll, Button } from './styled';
+import { connect } from 'react-redux';
 
-const FilterByCategory = () => {
+const FilterByCategory = props => {
+  const [color, setColor] = useState('black');
+
+  useEffect(() => {
+    props.isSelected ? setColor('red') : setColor('black');
+  }, [props.isSelected]);
+
   const categories = [
-    "Árabe",
-    "Asiática",
-    "Hambúrguer",
-    "Italiana",
-    "Sorvetes",
-    "Carnes",
-    "Baiana",
-    "Petiscos",
-    "Mexicana"
+    'Árabe',
+    'Asiática',
+    'Hamburguer',
+    'Italiana',
+    'Sorvetes',
+    'Carnes',
+    'Baiana',
+    'Petiscos',
+    'Mexicana',
+    'Teste'
   ];
 
   return (
     <HorizontalScroll>
-      {categories.map((category, i) => {
-        return <Button key={i}>{category}</Button>;
+      {categories.map((category, index) => {
+        return (
+          <Button
+            onClick={props.onClick}
+            key={index}
+            value={category}
+            color={color}
+          >
+            {category}
+          </Button>
+        );
       })}
     </HorizontalScroll>
   );
 };
 
-export default FilterByCategory;
+const mapStateToProps = state => ({
+  allRestaurants: state.restaurants.allRestaurants
+});
+
+export default connect(mapStateToProps)(FilterByCategory);

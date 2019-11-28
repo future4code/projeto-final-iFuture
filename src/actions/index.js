@@ -9,17 +9,17 @@ export const setOrdersHistory = (orders) => ({
     }
 })
 
-export const setAmount = (amount) => ({
-    type: 'SET_AMOUNT',
-    payload: {
-        amount
-    }
-})
-
 export const setProfile = (profile) => ({
     type: 'SET_PROFILE',
     payload: {
         profile
+    }
+})
+
+export const removeAmount = (idToRemove) => ({
+    type: 'REMOVE_AMOUNT',
+    payload: {
+        idToRemove
     }
 })
 
@@ -66,4 +66,25 @@ export const getActiveOrder = () => async (dispatch) => {
     })
 
     dispatch(setActiveOrder(response.data.order))
+}
+
+export const placeOrder = (products, paymentMethod, restaurantId) => async dispatch => {
+
+    const token = window.localStorage.getItem("token");
+
+    const body = {
+        products: products,
+        paymentMethod: paymentMethod
+     }
+
+    const response = await axios.post(
+        `${urlBase}/restaurants/${restaurantId}/order`, body,{
+            headers:{
+                auth: token
+            }
+        }
+    );
+    
+    dispatch(push(routes.feed));
+
 }

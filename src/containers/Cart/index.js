@@ -1,8 +1,10 @@
-import React from "react";
-import { CartWrapper, DeliveryAdressContainer, DeliveryAdress, 
-    RestaurantDetailContainer, RestaurantAdress, WaitingTime, 
-    FreightPrice, FinalPriceContainer, PriceContainer, PaymentContainer } from "./styled";
-import {Typography} from "@material-ui/core";
+import React, { useState } from "react";
+import {
+    CartWrapper, DeliveryAdressContainer, DeliveryAdress,
+    RestaurantDetailContainer, RestaurantAdress, WaitingTime,
+    FreightPrice, FinalPriceContainer, PriceContainer, PaymentContainer, TotalText, ButtonDiv, HeaderDiv
+} from "./styled";
+import { Typography } from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
@@ -10,28 +12,67 @@ import FoodCard from "../../components/FoodCard";
 import NavBar from "../../components/NavBar";
 import Header from "../../components/Header";
 import MainButtonComponent from "../../components/MainButton";
+import { connect } from 'react-redux'
+import { placeOrder } from '../../actions'
 
 export const Cart = (props) => {
-    const foodInfo = {
-        requestQuantity: 1,
-        foodsName: "Burger",
-        foodsDescription: "Descrição do burger Descrição do burger Descrição Descrição Des",
-        foodsPrice: 10,
+
+    const [checkBoxChecked, setCheckBoxChecked] = useState({cash: false, creditcard: false})
+
+    const handleCheckBox = (event) => {
+        setCheckBoxChecked({[event.target.name]: !checkBoxChecked[event.target.name]})
+    }
+
+    const mainButtonName = "Confirmar"
+
+    let previousPrice = 0
+
+    const filteredProductsByAmount = props.selectedProductList.filter(productHasAmount=>{
+        return productHasAmount.amount !== 0
+    })
+
+    props.selectedProductList.map(productsToPay => {
+        let actualPriceProduct = (productsToPay.amount * productsToPay.price)
+        previousPrice = actualPriceProduct + previousPrice
+    })
+
+    const totalShipping = props.selectRestaurant.shipping ? props.selectRestaurant.shipping.toFixed(2) : "0.00"
+
+    const subTotal = previousPrice + Number(totalShipping)
+
+    const payOrder =()=>{
+        let newFilteredList = []
+        for (let filteredProduct of filteredProductsByAmount){
+            const newObjProduct = {id: filteredProduct.id, quantity: filteredProduct.amount}
+            newFilteredList.push(newObjProduct)
+        }
+
+        let paymentType
+
+        if(checkBoxChecked.cash){
+            paymentType = "money"
+        }else{
+            paymentType = "creditcard"
+        }
+
+        props.placeOrder(newFilteredList, paymentType, props.selectRestaurant.id)
     }
 
     return (
         <CartWrapper>
-            <Header 
-                title={'Meu Carrinho'}
+            <HeaderDiv>
+            <Header
+                title='Meu Carrinho'
                 isArrowBackVisible={false}
             />
+            </HeaderDiv>
             <DeliveryAdressContainer>
                 <DeliveryAdress>
                     Endereço de entrega:
                 </DeliveryAdress>
                 <Typography
-                    component="p"  
-                    variant="subtitle2" 
+                    component="p"
+                    variant="subtitle2"
                     color="secondary"
                 >
                     Rua Alessandro Vieira, 42
@@ -39,11 +80,11 @@ export const Cart = (props) => {
             </DeliveryAdressContainer>
             <RestaurantDetailContainer>
                 <Typography
-                    component="p"  
-                    variant="subtitle2" 
+                    component="p"
+                    variant="subtitle2"
                     color="primary"
                 >
-                    Bullger Vila Madalena 
+                    Bullger Vila Madalena
                 </Typography>
                 <RestaurantAdress>
                     Rua Fradique Coutinho, 1136 - Vila Madalena
@@ -52,57 +93,83 @@ export const Cart = (props) => {
                     30 - 50 min
                 </WaitingTime>
             </RestaurantDetailContainer>
-            <FoodCard foodInfo={foodInfo}/>
-            <FoodCard foodInfo={foodInfo}/>
+            {props.selectedProductList.map((productOnCart, index) => {
+                if (productOnCart.amount !== 0) {
+                    return <FoodCard
+                        key={index}
+                        foodInfo={productOnCart}
+                    />
+                }
+            })
+            }
+
             <PriceContainer>
                 <FreightPrice
-                    component="p"  
-                    variant="subtitle2" 
+                    component="p"
+                    variant="subtitle2"
                     color="secondary"
                 >
-                        Frete R$ 6,00
+                    Frete R$ {filteredProductsByAmount.length > 0 ? totalShipping : "0.00"}
                 </FreightPrice>
                 <FinalPriceContainer>
                     <Typography
-                            component="p"  
-                            variant="subtitle1" 
-                            color="secondary"
-                        >
-                            SUBTOTAL 
+                        component="p"
+                        variant="subtitle1"
+                        color="secondary"
+                        fontWeight="fontWeightBold"
+                    >
+                        SUBTOTAL
                     </Typography>
-                    <Typography
-                            component="p"  
-                            variant="subtitle1" 
-                            color="primary"
-                        >
-                            R$ 26,00
-                    </Typography>
+                    <TotalText>
+                        R$ {filteredProductsByAmount.length > 0 ? subTotal.toFixed(2) : "0.00"}
+                    </TotalText>
                 </FinalPriceContainer>
             </PriceContainer>
             <PaymentContainer>
                 <Typography
-                    component="p"  
-                    variant="subtitle1" 
+                    component="p"
+                    variant="subtitle1"
                     color="secondary"
                 >
                     Forma de pagamento
                 </Typography>
-                <Divider 
+                <Divider
                     color="secondary"
                 />
                 <FormControlLabel
-                    control={<Checkbox  value="cash" />}
+                    control={<Checkbox
+                        name="cash"
+                        onClick={handleCheckBox}
+                        checked={checkBoxChecked.cash}
+                    />}
                     label="Dinheiro"
                 />
                 <FormControlLabel
-                    control={<Checkbox  value="card" />}
+                    control={<Checkbox
+                        name="creditcard"
+                        onClick={handleCheckBox}
+                        checked={checkBoxChecked.creditcard}
+                        value="creditcard" />}
                     label="Cartão de crédito"
                 />
-                <MainButtonComponent />
+                
             </PaymentContainer>
+            <ButtonDiv>
+            <MainButtonComponent
+                    onButtonClick={payOrder}
+                    title={mainButtonName}
+                /></ButtonDiv>
             <NavBar />
-        </CartWrapper>  
+        </CartWrapper>
     )
 }
 
-export default Cart
+const mapStateToProps = (state) => ({
+    selectedProductList: state.restaurants.selectedProductList,
+    selectRestaurant: state.restaurants.selectRestaurant,
+})
+const mapDispatchToProps = (dispatch) => ({
+    placeOrder: (products, paymentMethod, restaurantId)=>dispatch(placeOrder(products, paymentMethod, restaurantId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

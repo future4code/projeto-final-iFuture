@@ -1,74 +1,90 @@
 import styled from "styled-components"
-import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
-import {Typography} from "@material-ui/core";
 
 
-export const StyledCard = styled(Card) `
-    width: 87.5%;
-    height: 112px;
+export const StyledCard = styled.div`
+    width: calc(100% - 32px);
+    min-height: 112px;
     display: flex;
-    padding-bottom: 0;
-    margin: 0;
-    margin-top: 8px;
+    margin: 8px 16px 0;
     border: solid 1px #b8b8b8;
+    border-radius:8px;
+`
+
+export const FlexDiv = styled.div`
+    justify-content:space-between;
+    display:flex;
 `
 
 export const StyledCardMedia = styled(CardMedia)`
     background-color: black;
-    flex-basis: 30%;
-    height: 100%;
+    width: 30%;
+    border-radius: 8px 0 0 8px;
 `
+
 export const CardContent = styled.div`
-    flex-basis: 70%;
-    height: 100%;
-    padding: 0;
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(7, 1fr);
+    width: 70%;
+    display: flex;
+    flex-direction:column
     padding-left: 16px;
 `
 
-export const TypographyTitle = styled(Typography)`
-    padding-top: 15px;
-    grid-row-start: 1;
-    grid-column-start: 1;
-    grid-column-end: 6;
+export const TypographyTitle = styled.span`
+    margin-top: 18px;
+    min-height:18px;
+    font-size: 16px;
+    color: #e8222e;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 167px;
+    text-overflow: ellipsis;
 `
 
 export const RequestQuantityWrapper = styled.div`
-    grid-row-start: 1;
-    grid-column-start: -2;
-    border-style:solid;
-    border-width:thin;
-    border-color: #e8222e;
-    border-radius: 0px 5px 0px 5px ;
-    padding-top: 5px;
-    margin-bottom: 15px;
+    border: solid 1px #e8222e;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width: 33px;
+    height: 33px;
+    border-radius: 0px 5px 0px 5px;
 `
 
-export const TypographyDescription = styled(Typography)`
-    grid-row-start: 2;  
-    grid-column-start: 1;
-    grid-column-end: 7;
+export const TypographyDescription = styled.span`
+    margin: 8px 16px 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    height:32px;
+    font-size: 12px;
+    color: #b8b8b8;
 `
 
-export const TypographyValue = styled(Typography)`
-    grid-row-start: 3;
-    grid-column-start: 1;
-    grid-column-end: 4;
+export const TypographyValue = styled.span`
+    margin-top: 4px;
+    font-size: 16px;
+    min-height: 19px;
+    color: #000000;
+`
+
+export const TypographyButtonText = styled.span`
+    font-size: 12px;
+    min-height: 14px;
+    color: ${props => props.borderColor};
 `
 
 export const AddRequestButton = styled.div`
-    grid-row-start: 3;
-    grid-column-start: 5;
-    grid-column-end: -1;
+    margin-top:7px;
+    width:90px;
+    height:31px;
     border-style:solid;
     border-width:thin;
     border-color: ${props => props.borderColor};
-    border-radius: 5px 0px 5px 0px ;
-    margin-top: 10px;
-    padding-top: 3px;
+    border-radius: 8px 0px 8px 0px ;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 `
 
 

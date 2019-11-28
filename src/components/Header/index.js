@@ -1,23 +1,19 @@
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
+import {  goBack } from 'connected-react-router';
+import { Container, Title, StyledArrow } from './styled';
 
-import { Container, TitleWrapper, Title, StyledArrow } from "./styled";
-
-const Header = ({
-  title, 
-  isArrowBackVisible,
-  urlArrowBack
-}) => {
-  
+const Header = ({ title, isArrowBackVisible, goBackPage }) => {
   return (
     <Container>
-      {isArrowBackVisible && (
-        <StyledArrow 
-        onClick={() => console.log(urlArrowBack)}
-      />  
-      )}
-    <Title>{title}</Title>
+      {isArrowBackVisible && <StyledArrow onClick={goBackPage} />}
+      <Title>{title}</Title>
     </Container>
   );
 };
 
-export default Header;
+const mapDispatchToProps = dispatch => ({
+  goBackPage: () => dispatch(goBack())
+});
+
+export default connect(null, mapDispatchToProps)(Header);

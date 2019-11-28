@@ -9,7 +9,9 @@ export const MainPopUpDiv = styled.div`
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    position: absolute;
+    position: fixed;
+    top:0;
+    bottom:0;
 `
 
 export const SelectPickerStyled = styled(SelectPicker)`
