@@ -32,7 +32,21 @@ class Feed extends React.Component {
     this.props.getAllRestaurants();
     this.props.getActiveOrder();
     this.props.getProfile();
+
+    const token = window.localStorage.getItem('token')
+    
+    if (!token) {
+      this.props.goToLoginPage()
+    }
   };
+
+  componentDidUpdate(prevProps){
+    if(prevProps.actualProfile !== this.props.actualProfile){
+      if (this.props.actualProfile.hasAddress === false) {
+        this.props.goToAddressPage()
+      }
+    }
+  }
 
   renderFilteredRestaurants = event => {
     if (this.state.selectedFilter === event.target.value) {
@@ -59,7 +73,7 @@ class Feed extends React.Component {
             <BaseInput placeholder="Restaurante" />
           </ContainerSearch>
           <FilterByCategory
-            onClick={this.renderFilteredRestaurants}
+            clicked={this.renderFilteredRestaurants}
             isSelected={this.state.filterIsSelected}
           />
         </WrapperFixedComponents>
@@ -111,16 +125,19 @@ class Feed extends React.Component {
 const mapStateToProps = state => {
   return {
     allRestaurants: state.restaurants.allRestaurants,
-    actualOrder: state.requests.actualOrder
+    actualOrder: state.requests.actualOrder,
+    actualProfile: state.requests.actualProfile,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   goToSearchPage: () => dispatch(push(routes.search)),
+  goToLoginPage: () => dispatch(push(routes.login)),
+  goToAddressPage: () => dispatch(push(routes.address)),
   getAllRestaurants: () => dispatch(fecthRestaurants()),
   getActiveOrder: () => dispatch(getActiveOrder()),
   getRestaurantDetail: restaurantId =>
-    dispatch(setSelectedRestaurantDetails(restaurantId)),
+  dispatch(setSelectedRestaurantDetails(restaurantId)),
   getProfile: () => dispatch(getProfile())
 });
 

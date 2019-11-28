@@ -21,6 +21,18 @@ class AddressPage extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.props.getProfile()
+        if(this.props.actualProfile.hasAddress){
+           this.props.goToFeed()
+        }
+    }
+    componentDidUpdate(){
+        if(this.props.actualProfile.hasAddress){
+            this.props.goToFeed()
+         }
+    }
+
     componentWillUnmount(){
         this.props.getProfile()
     }
@@ -181,6 +193,11 @@ class AddressPage extends React.Component {
     };
 };
 
+const mapStateToProps = state =>({
+    actualProfile: state.requests.actualProfile
+})
+
+
 function mapDispatchToProps(dispatch) {
     return {
         createdAddress: (street, number, neighbourhood, city, state, complement) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement)),
@@ -190,6 +207,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
     )(AddressPage);

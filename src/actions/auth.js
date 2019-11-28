@@ -11,7 +11,6 @@ export const login = (email, password) => async dispatch => {
     const response = await axios.post(
         `${urlBase}/login`, body
     );
-    console.log("Resposta", response)
     window.localStorage.setItem('token', response.data.token)
     dispatch(push(routes.feed));
 } 

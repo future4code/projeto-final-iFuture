@@ -27,7 +27,7 @@ const FilterByCategory = props => {
       {categories.map((category, index) => {
         return (
           <Button
-            onClick={props.onClick}
+            onClick={props.clicked}
             key={index}
             value={category}
             color={color}
