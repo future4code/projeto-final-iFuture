@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { MainPopUpDiv, WhiteContainer, Text, SelectContainer, SelectStyled, SpanButton, SelectPickerStyled } from './styled'
+import { MainPopUpDiv, WhiteContainer, Text, SpanButton, SelectPickerStyled } from './styled'
 import { connect } from 'react-redux'
 import { setProductAmount } from '../../actions/fetchRestaurants'
 
 export const PopUp = props => {
 
-  const [amount, setAmount] = React.useState(0);
+  const [amount, setAmount] = useState(0);
 
   const handleChange = value => {
     setAmount(value);
@@ -85,10 +85,6 @@ export const PopUp = props => {
     </MainPopUpDiv>
   )
 }
-
-const mapStateToProps = (state) => ({
-
-})
 
 const mapDispatchToProps = dispatch => ({
   setProductAmount: (amount) => dispatch(setProductAmount(amount)),
