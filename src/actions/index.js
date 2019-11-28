@@ -52,7 +52,6 @@ export const getProfile = () => async (dispatch) => {
         }
 
     })
-
     dispatch(setProfile(response.data.user))
 }
 
