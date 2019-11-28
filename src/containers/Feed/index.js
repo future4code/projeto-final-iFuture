@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { routes } from '../Router';
 import OrderInProgress from '../../components/OrderInProgress';
-
+import { getActiveOrder } from '../../actions'
 import {
   WrapperFixedComponents,
   IconSearch,
@@ -30,6 +30,7 @@ class Feed extends React.Component {
 
   componentDidMount = () => {
     this.props.getAllRestaurants();
+    this.props.getActiveOrder()
   };
 
   renderFilteredRestaurants = event => {
@@ -104,15 +105,16 @@ class Feed extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    allRestaurants: state.restaurants.allRestaurants
+    allRestaurants: state.restaurants.allRestaurants,
+    actualOrder: state.requests.actualOrder,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   goToSearchPage: () => dispatch(push(routes.search)),
   getAllRestaurants: () => dispatch(fecthRestaurants()),
-  getRestaurantDetail: restaurantId =>
-    dispatch(setSelectedRestaurantDetails(restaurantId))
+  getActiveOrder: () => dispatch(getActiveOrder()),
+  getRestaurantDetail: restaurantId => dispatch(setSelectedRestaurantDetails(restaurantId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

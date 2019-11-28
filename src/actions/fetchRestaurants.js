@@ -9,6 +9,14 @@ const getRestaurants = restaurants => ({
   }
 });
 
+
+export const setProductAmount = (amount) => ({
+  type: 'SET_PRODUCT_AMOUNT',
+  payload: {
+      amount
+  }
+})
+
 export const fecthRestaurants = () => async dispatch => {
   const token = window.localStorage.getItem('token');
 

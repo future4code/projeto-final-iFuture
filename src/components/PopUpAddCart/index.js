@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MainPopUpDiv, WhiteContainer, Text, SelectContainer, SelectStyled, SpanButton, SelectPickerStyled } from './styled'
 import { connect } from 'react-redux'
-import { setAmount } from '../../actions'
+import { setProductAmount } from '../../actions/fetchRestaurants'
 
 export const PopUp = props => {
 
@@ -12,12 +12,12 @@ export const PopUp = props => {
   };
 
   const addAmountToCart = () => {
-    const { setAmount } = props
+    const { setProductAmount } = props
     const amountItem = {
       amount: amount, itemId: props.actualId
     }
-    
-    setAmount(amountItem)
+
+    setProductAmount(amountItem)
     closePopUp()
   }
 
@@ -91,7 +91,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setAmount: (amount) => dispatch(setAmount(amount)),
+  setProductAmount: (amount) => dispatch(setProductAmount(amount)),
 })
 
 export default connect(null, mapDispatchToProps)(PopUp)

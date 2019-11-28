@@ -20,28 +20,6 @@ import { connect } from 'react-redux';
 import PopUp from '../../components/PopUpAddCart';
 
 const RestaurantDetail = props => {
-  const foodInfo = [
-    {
-      name: 'Coxinha',
-      description:
-        'Descrição do burger Descrição do burger Descrição Descrição Des',
-      price: 10,
-      id: 1,
-      photoUrl:
-        'https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg',
-      category: 'Salgado'
-    },
-    {
-      name: 'Esfirra',
-      description:
-        'Descrição do burger Descrição do burger Descrição Descrição Des',
-      price: 10,
-      id: 2,
-      photoUrl:
-        'https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg',
-      category: 'Salgado'
-    }
-  ];
 
   const [showedPopUp, setShowedPopUp] = useState(false);
   const [actualId, setActualId] = useState('');
@@ -59,8 +37,6 @@ const RestaurantDetail = props => {
     }
   }, []);
 
-  console.log(actualCategories);
-
   const showPopUpAddCart = id => {
     if (showedPopUp === false) {
       setShowedPopUp(true);
@@ -73,10 +49,10 @@ const RestaurantDetail = props => {
   const popUp = showedPopUp ? (
     <PopUp showPopUpAddCart={showPopUpAddCart} actualId={actualId} />
   ) : (
-    <div></div>
-  );
+      <div></div>
+    );
 
-  const { currentRestaurant } = props;
+  const { currentRestaurant, selectedProductList } = props;
 
   return (
     <Wrapper>
@@ -105,18 +81,13 @@ const RestaurantDetail = props => {
           <div>
             <PrincipalDish key={i}>{category}</PrincipalDish>;
             <WrapperPrincipalDish>
-              {currentRestaurant.products.map((product, index) => {
+              {selectedProductList.map((product, index) => {
                 if (product.category === category) {
                   return (
                     <FoodCard
                       key={index}
                       foodInfo={product}
                       showPopUpAddCart={showPopUpAddCart}
-                      amount={
-                        product.id === props.amount.itemId
-                          ? props.amount.amount
-                          : null
-                      }
                     />
                   );
                 }
@@ -131,7 +102,8 @@ const RestaurantDetail = props => {
 
 const mapStateToProps = state => ({
   amount: state.requests.actualAmount,
-  currentRestaurant: state.restaurants.selectRestaurant
+  currentRestaurant: state.restaurants.selectRestaurant,
+  selectedProductList: state.restaurants.selectedProductList,
 });
 
 export default connect(mapStateToProps, null)(RestaurantDetail);

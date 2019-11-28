@@ -1,89 +1,89 @@
-import React, {useState} from "react";
-import { StyledCard, CardContent, StyledCardMedia, 
+import React, { useState } from "react";
+import {
+    StyledCard, CardContent, StyledCardMedia,
     TypographyTitle, TypographyDescription, TypographyValue,
-    RequestQuantityWrapper, AddRequestButton} from "./styled";
+    RequestQuantityWrapper, AddRequestButton, FlexDiv, TypographyButtonText
+} from "./styled";
+import { Typography } from "@material-ui/core";
+import { removeAmount } from '../../actions'
+import { connect } from 'react-redux'
 
 export const FoodCard = (props) => {
 
-    const [nameRequestButton, setNameRequestButton] = useState("adicionar")
-    const [borderColor, setBorderColor] = useState("black")
-    const [color, setColor] = useState("secondary")
-    const [requestQuantity, setRequestQuantity] = useState(false)
-
     const onClickAddRequestButton = () => {
-        if (nameRequestButton === "adicionar") {
-            setNameRequestButton("remover")
-            setBorderColor("#e8222e")
-            setColor("primary")
-            setRequestQuantity(true)
+        if(props.foodInfo.amount === 0){
             props.showPopUpAddCart(props.foodInfo.id)
-        } else {
-            setNameRequestButton("adicionar")
-            setBorderColor("black")
-            setColor("secondary")
-            setRequestQuantity(false)
+        }else{
+            props.removeAmount(props.foodInfo.id)
         }
     }
 
-    const showRequestQuantity = requestQuantity ? (
+    const showRequestQuantity = props.foodInfo.amount > 0 ? (
         <RequestQuantityWrapper>
-            <TypographyValue 
+            <Typography
                 color="primary"
-                component="p"  
-                variant="caption" 
+                component="p"
+                variant="caption"
                 align="center"
             >
-                {props.amount}
-            </TypographyValue >
+                {props.foodInfo.amount}
+            </Typography >
         </RequestQuantityWrapper>
     ) : (<div></div>)
-    
+
     return (
         <StyledCard>
             <StyledCardMedia
                 image={props.foodInfo.photoUrl}
-                
+
             />
             <CardContent>
-                <TypographyTitle 
-                    component="h3" 
-                    variant="subtitle1" 
-                    color="primary"
-                >
-                    {props.foodInfo.name}
-                </TypographyTitle >
-                {showRequestQuantity}
+                <FlexDiv>
+                    <TypographyTitle
+                        component="h3"
+                        variant="subtitle1"
+                        color="primary"
+                    >
+                        {props.foodInfo.name}
+                    </TypographyTitle >
+                    {showRequestQuantity}
+                </FlexDiv>
                 <TypographyDescription
-                    component="p"  
-                    variant="caption" 
+                    component="p"
+                    variant="caption"
                     color="initial"
                 >
                     {/* 60 caracteres (para validação do imput de criação de comida) */}
                     {props.foodInfo.description}
                 </TypographyDescription>
-                <TypographyValue 
-                    component="p"  
-                    variant="subtitle2" 
+                <FlexDiv>
+                <TypographyValue
+                    component="p"
+                    variant="subtitle2"
                     color="secondary"
                 >
                     R$ {props.foodInfo.price.toFixed(2)}
                 </TypographyValue >
-                <AddRequestButton 
+                <AddRequestButton
                     onClick={onClickAddRequestButton}
-                    borderColor={borderColor}
+                    borderColor={props.foodInfo.amount === 0 ? "black" : "#e8222e"}
                 >
-                    <TypographyValue 
-                        color={color}
-                        component="p"  
-                        variant="caption" 
-                        align="center" 
+                    <TypographyButtonText
+                        borderColor={props.foodInfo.amount === 0 ? "black" : "#e8222e"}
                     >
-                        {nameRequestButton}
-                    </TypographyValue >
+                        {props.foodInfo.amount === 0 ? "adicionar" : "remover"}
+
+                    </TypographyButtonText >
+                    
                 </AddRequestButton>
+                </FlexDiv>
             </CardContent>
         </StyledCard>
     )
 }
 
-export default FoodCard
+const mapDispatchToProps = dispatch =>({
+    removeAmount: (amountToRemove)=>dispatch(removeAmount(amountToRemove))
+})
+
+export default connect(null, mapDispatchToProps)(FoodCard)

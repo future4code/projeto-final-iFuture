@@ -7,6 +7,11 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position:sticky;
+  top:0;
+  right:0;
+  left:0;
+  background: white;
 `;
 
 export const StyledArrow = styled(ArrowBack)`
