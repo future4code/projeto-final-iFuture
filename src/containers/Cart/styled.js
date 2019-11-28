@@ -75,6 +75,12 @@ export const PaymentContainer = styled.div`
 `
 
 export const ButtonDiv = styled.div`
-margin-bottom:58px;
-width:100%;
+    margin-bottom:58px;
+    width:100%;
+`
+
+export const HeaderDiv = styled.div`
+    position:sticky;
+    top:0;
+    width:100%;
 `
