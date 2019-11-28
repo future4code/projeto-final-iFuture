@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { routes } from "../Router";
 import { push } from "connected-react-router";
 import { signUpAddress } from "../../actions/auth"
+import { getProfile } from "../../actions/"
 import Header from '../../components/Header';
 import MainButtonComponent from '../../components/MainButton'
 import { ContainerAddressPage, TextRegister, InputAddress, InputNumber, InputHouse, InputNeighborhood, InputCity, InputState} from './styled';
@@ -18,6 +19,10 @@ class AddressPage extends React.Component {
             state: "",
             complement: ""
         }
+    }
+
+    componentDidMount(){
+        this.props.getProfile()
     }
 
     handleSubmit = (event) => {
@@ -180,7 +185,8 @@ class AddressPage extends React.Component {
 function mapDispatchToProps(dispatch) {
     return {
         createdAddress: (street, number, neighbourhood, city, state, complement) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement)),
-        goToFeed: () => dispatch(push(routes.feed))
+        goToFeed: () => dispatch(push(routes.feed)),
+        getProfile: () => dispatch(getProfile())
     }
 }
 

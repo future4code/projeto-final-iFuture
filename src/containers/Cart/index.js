@@ -36,7 +36,7 @@ export const Cart = (props) => {
         previousPrice = actualPriceProduct + previousPrice
     })
 
-    const totalShipping = props.selectRestaurant.shipping ? props.selectRestaurant.shipping.toFixed(2) : "0.00"
+    const totalShipping = props.selectRestaurant.shipping ? Number(props.selectRestaurant.shipping).toFixed(2) : "0.00"
 
     const subTotal = previousPrice + Number(totalShipping)
 
@@ -51,8 +51,10 @@ export const Cart = (props) => {
 
         if(checkBoxChecked.cash){
             paymentType = "money"
-        }else{
+        }else if(checkBoxChecked.creditcard){
             paymentType = "creditcard"
+        }else{
+            paymentType = "nao informado"
         }
 
         props.placeOrder(newFilteredList, paymentType, props.selectRestaurant.id)

@@ -19,7 +19,7 @@ const OrderInProgress = (props) => {
 				<TextWrapper>
 					<StatusOrder>Pedido em andamento</StatusOrder>
 					<RestaurantName>{props.order.restaurantName}</RestaurantName>
-					<SubTotal>SUBTOTAL R${props.order.totalPrice.toFixed(2)}</SubTotal>
+					<SubTotal>SUBTOTAL R${Number(props.order.totalPrice).toFixed(2)}</SubTotal>
 				</TextWrapper>
 			</Rectangle>
 		</Wrapper>

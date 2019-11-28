@@ -11,7 +11,7 @@ export const CartCard = props => {
         <MainCartCardDiv>
             <CardTitle>{props.title}</CardTitle>
             <CardDate>{transformDate}</CardDate>
-            <CardPrice>SUBTOTAL R${props.price.toFixed(2)}</CardPrice>
+            <CardPrice>SUBTOTAL R${Number(props.price).toFixed(2)}</CardPrice>
         </MainCartCardDiv>
     )
 }
