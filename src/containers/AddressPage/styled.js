@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 
-export const ContainerAddressPage = styled.div `
+export const ContainerAddressPage = styled.form `
     display: flex;
     align-items: center;
     flex-direction: column;

@@ -28,5 +28,32 @@ export const signUp = (name, email, cpf, password) => async dispatch => {
     if (response.status === 200) {
         dispatch(push(routes.address))
     }
-    console.log("Reposta", response)
 }
+
+export const signUpAddress = (street, number, neighbourhood, city, state, complement) => async dispatch => {
+    const newAddress = {
+        street,
+        number,
+        neighbourhood,
+        city,
+        state,
+        complement,
+    }
+
+    const token = window.localStorage.getItem('token');
+
+    const response = await axios.put(
+        `${urlBase}/address`, newAddress, {
+            headers: {
+                auth: token
+            }
+        }
+    );
+
+    window.localStorage.setItem('token', response.data.token);
+
+    if (response.status === 200) {
+        dispatch(push(routes.feed))
+    }
+}
+

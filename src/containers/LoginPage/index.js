@@ -24,7 +24,9 @@ class LoginPage extends React.Component {
         }
     }
 
-    onClickLogin = () => {
+    onClickLogin = (event) => {
+        event.preventDefault()
+
         const { email, password } = this.state;
 
         this.props.doLogin(email, password);
@@ -47,7 +49,7 @@ class LoginPage extends React.Component {
         return(
             
             <div>
-                <ContainerLoginPage>
+                <ContainerLoginPage onSubmit={this.onClickLogin}>
                     <ImgLogo src={imgIcon.logo} alt="logo" />
 
                     <TextEnter>Entrar</TextEnter>
@@ -98,7 +100,7 @@ class LoginPage extends React.Component {
                         id="password"
                     />
 
-                    <MainButtonComponent title="Entrar" onButtonClick={this.onClickLogin} />
+                    <MainButtonComponent title="Entrar" type="submit"/>
 
                     <TextRegisterUser>Não possui cadastro? <GoToSignUp onClick={this.props.goToSignUp}>Clique aqui.</GoToSignUp></TextRegisterUser>
 

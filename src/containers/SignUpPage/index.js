@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { routes } from "../Router";
-import { push } from "connected-react-router";
 import { signUp } from "../../actions/auth";
 import Header from '../../components/Header';
 import MainButtonComponent from '../../components/MainButton'
@@ -26,6 +24,7 @@ class SignUpPage extends React.Component {
             passwordConfirm: "",
             showPassword: false,
             showPasswordConfirm: false,
+            open: false,
         }
     };
 
@@ -52,8 +51,14 @@ class SignUpPage extends React.Component {
         if (password === passwordConfirm ) {
             this.handleSubmit()
         }
-        else
-            console.log("erro") //voltar para o campo senha
+        else {
+            return (
+              <div>
+                  {/* Mensagem  "As senhas não conferem"*/}
+              </div>
+            )
+        }
+            
 
         this.clearNewTaskValue();
     };
@@ -220,7 +225,7 @@ class SignUpPage extends React.Component {
                         value={passwordConfirm}
                     />
 
-                    <MainButtonComponent title="Criar" />
+                    <MainButtonComponent title="Criar" type="submit" />
 
                 </ContainerSignUpPage>
             </div>
@@ -230,13 +235,12 @@ class SignUpPage extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        createdUser: (nameUser, email, cpf, password) => dispatch(signUp(nameUser, email, cpf, password)),
-        goToAddress: () => dispatch(push(routes.adress))
+        createdUser: (name, email, cpf, password) => dispatch(signUp(name, email, cpf, password)),
     }
 }
 export default connect(
     null,
-    mapDispatchToProps)
-    (SignUpPage);
+    mapDispatchToProps
+    )(SignUpPage);
 
 
