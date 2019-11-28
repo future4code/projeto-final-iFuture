@@ -73,6 +73,10 @@ export const WrapperPrincipalDish = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &:last-child{
+    margin-bottom: 8px;
+  }
 `;
 
 export const WrapperSideDish = styled.div`

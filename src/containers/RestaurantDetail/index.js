@@ -3,7 +3,6 @@ import Header from '../../components/Header';
 import {
   Wrapper,
   PrincipalDish,
-  SideDish,
   CardDiv,
   CardTitle,
   CardDatesContainers,
@@ -12,15 +11,13 @@ import {
   CardDeliveryAdress,
   CardDeliveryCategory,
   CardImage,
-  WrapperPrincipalDish,
-  WrapperSideDish
+  WrapperPrincipalDish
 } from './styled';
 import FoodCard from '../../components/FoodCard/';
 import { connect } from 'react-redux';
 import PopUp from '../../components/PopUpAddCart';
 
 const RestaurantDetail = props => {
-
   const [showedPopUp, setShowedPopUp] = useState(false);
   const [actualId, setActualId] = useState('');
   const [actualCategories, setActualCategories] = useState([]);
@@ -49,8 +46,8 @@ const RestaurantDetail = props => {
   const popUp = showedPopUp ? (
     <PopUp showPopUpAddCart={showPopUpAddCart} actualId={actualId} />
   ) : (
-      <div></div>
-    );
+    <div></div>
+  );
 
   const { currentRestaurant, selectedProductList } = props;
 
@@ -76,10 +73,10 @@ const RestaurantDetail = props => {
           <CardDeliveryAdress>{currentRestaurant.address}</CardDeliveryAdress>
         </CardDatesContainers>
       </CardDiv>
-      {actualCategories.map((category, i) => {
+      {actualCategories.map((category, index) => {
         return (
           <div>
-            <PrincipalDish key={i}>{category}</PrincipalDish>;
+            <PrincipalDish key={index}>{category}</PrincipalDish>
             <WrapperPrincipalDish>
               {selectedProductList.map((product, index) => {
                 if (product.category === category) {
@@ -103,7 +100,7 @@ const RestaurantDetail = props => {
 const mapStateToProps = state => ({
   amount: state.requests.actualAmount,
   currentRestaurant: state.restaurants.selectRestaurant,
-  selectedProductList: state.restaurants.selectedProductList,
+  selectedProductList: state.restaurants.selectedProductList
 });
 
 export default connect(mapStateToProps, null)(RestaurantDetail);
