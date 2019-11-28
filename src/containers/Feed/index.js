@@ -73,7 +73,7 @@ class Feed extends React.Component {
             <BaseInput placeholder="Restaurante" />
           </ContainerSearch>
           <FilterByCategory
-            onClick={this.renderFilteredRestaurants}
+            clicked={this.renderFilteredRestaurants}
             isSelected={this.state.filterIsSelected}
           />
         </WrapperFixedComponents>
