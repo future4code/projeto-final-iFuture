@@ -25,6 +25,7 @@ class SignUpPage extends React.Component {
             showPassword: false,
             showPasswordConfirm: false,
             open: false,
+            error:{msg:"", status:false}
         }
     };
 
@@ -52,21 +53,11 @@ class SignUpPage extends React.Component {
             this.handleSubmit()
         }
         else {
-            return (
-              <div>
-                  {/* Mensagem  "As senhas não conferem"*/}
-              </div>
-            )
-        }
             
-
-        this.clearNewTaskValue();
+            this.setState({error:{msg:"deve ser a mesma que a anterior", status: true}})
+        }
+        
     };
-
-    clearNewTaskValue = () => {
-        this.setState({ name: "", email: "", cpf: "", password: "", passwordConfirm: ""});
-    };
-
 
     handleSubmit = () => {
 
@@ -204,6 +195,8 @@ class SignUpPage extends React.Component {
                         placeholder="Confirme a senha anterior"
                         margin="normal"
                         variant="outlined"
+                        error={this.state.error.status}
+                        helperText={this.state.error.msg}
                         InputLabelProps={{
                             shrink: true,
                         }}

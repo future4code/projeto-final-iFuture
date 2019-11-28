@@ -36,7 +36,7 @@ export const Cart = (props) => {
         previousPrice = actualPriceProduct + previousPrice
     })
 
-    const totalShipping = props.selectRestaurant.shipping ? Number(props.selectRestaurant.shipping).toFixed(2) : "0.00"
+    const totalShipping = props.selectRestaurant.shipping ? Number(props.selectRestaurant.shipping).toFixed(2) : "00.00"
 
     const subTotal = previousPrice + Number(totalShipping)
 
@@ -123,7 +123,7 @@ export const Cart = (props) => {
                         SUBTOTAL
                     </Typography>
                     <TotalText>
-                        R$ {filteredProductsByAmount.length > 0 ? subTotal.toFixed(2) : "0.00"}
+                        R$ {filteredProductsByAmount.length > 0 ? subTotal.toFixed(2) : "00.00"}
                     </TotalText>
                 </FinalPriceContainer>
             </PriceContainer>
