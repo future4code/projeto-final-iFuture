@@ -31,6 +31,13 @@ export const WaitingTime = styled.span`
     color: #b8b8b8;
 `
 
+export const TotalText = styled.span`
+    min-height: 21px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #e8222e;
+`
+
 export const RestaurantDetailContainer = styled.div`
     width: 100%;
     height: 96px;
@@ -62,8 +69,18 @@ export const FinalPriceContainer = styled(Typography)`
 export const PaymentContainer = styled.div`
     width: 100%;
     margin-top: 10px;
-    margin-bottom: 58px;
     display: flex;
     flex-direction: column;
     padding: 0 8%;
+`
+
+export const ButtonDiv = styled.div`
+    margin-bottom:58px;
+    width:100%;
+`
+
+export const HeaderDiv = styled.div`
+    position:sticky;
+    top:0;
+    width:100%;
 `
