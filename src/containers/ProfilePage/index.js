@@ -6,6 +6,8 @@ import NavBar from '../../components/NavBar';
 import CartCard from "../../components/CartCard";
 import { connect } from 'react-redux'
 import { getProfile, getOrdersHistory } from '../../actions'
+import { routes } from "../Router";
+import { push } from "connected-react-router";
 
 const ProfilePage = (props) => {
 
@@ -31,7 +33,7 @@ const ProfilePage = (props) => {
             <ProfileContainer>
                 <ProfileFlexDiv>
                     <ProfileText>{actualProfile.name}</ProfileText>
-                    <Edit />
+                    <Edit onClick={()=>props.goToProfileEditPage()}/>
                 </ProfileFlexDiv>
                 <ProfileText>{actualProfile.email}</ProfileText>
                 <ProfileText>{actualProfile.cpf}</ProfileText>
@@ -39,7 +41,7 @@ const ProfilePage = (props) => {
             <AdressContainer>
                 <ProfileFlexDiv>
                     <AdressTitle>Endereço Cadastrado</AdressTitle>
-                    <Edit />
+                    <Edit onClick={()=>props.goToAddressProfileEditPage()}/>
                 </ProfileFlexDiv>
                 <AddressText>{actualProfile.address}</AddressText>
             </AdressContainer>
@@ -62,6 +64,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getOrdersHistory: () => dispatch(getOrdersHistory()),
     getProfile: () => dispatch(getProfile()),
+    goToProfileEditPage: () => dispatch(push(routes.editSignUp)),
+    goToAddressProfileEditPage: () => dispatch(push(routes.editAdress)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)
