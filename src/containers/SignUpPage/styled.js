@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 
-
 export const ImgLogo = styled.img `
     width: 104px;
     height: 58px;
     margin-top: 24px;
 `
 
-export const ContainerSignUpPage = styled.div `
+export const ContainerSignUpPage = styled.form `
     display: flex;
     align-items: center;
     flex-direction: column;

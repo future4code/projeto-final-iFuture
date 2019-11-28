@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { routes } from "../containers/Router";
-import { push } from "connected-react-router";
 
 const urlBase = 'https://us-central1-missao-newton.cloudfunctions.net/iFuture'
 
@@ -54,7 +52,6 @@ export const getProfile = () => async (dispatch) => {
         }
 
     })
-
     dispatch(setProfile(response.data.user))
 }
 
@@ -69,16 +66,6 @@ export const getActiveOrder = () => async (dispatch) => {
     })
 
     dispatch(setActiveOrder(response.data.order))
-}
-
-export const signUp = (name, email, cpf, password) => async dispatch => {
-    const body = { name, email, cpf, password}
-
-    const response = await axios.post(
-        `${urlBase}/signup`, body
-    );
-    window.localStorage.setItem('token', response.data.token)
-    dispatch(push(routes.address));
 }
 
 export const placeOrder = (products, paymentMethod, restaurantId) => async dispatch => {
@@ -99,4 +86,5 @@ export const placeOrder = (products, paymentMethod, restaurantId) => async dispa
     );
     
     dispatch(push(routes.feed));
+
 }

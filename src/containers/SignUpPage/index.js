@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { routes } from "../Router";
-import { push } from "connected-react-router";
-import { signUp } from "../../actions";
+import { signUp } from "../../actions/auth";
 import Header from '../../components/Header';
 import MainButtonComponent from '../../components/MainButton'
 import { ImgLogo, ContainerSignUpPage, TextRegister, InputName, InputEmail, InputCPF, InputPassword, InputPasswordConfirm } from './styled';
@@ -26,22 +24,57 @@ class SignUpPage extends React.Component {
             passwordConfirm: "",
             showPassword: false,
             showPasswordConfirm: false,
+            open: false,
         }
-    }
+    };
 
-    onClickRegister = () => {
-        const { name, email, cpf, password } = this.state;
+    formatCPF = value => {
+        return value
+            .replace(/\D/g, '')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+            .replace(/(-\d{2})\d+?$/, '$1')
+    };
 
-        this.props.doSignUp(name, email, cpf, password);
-    }
+    handleFieldChangeCPF = event => {
+        const formattedCPF = this.formatCPF(event.target.value);
+        this.setState({ cpf: formattedCPF })
+    };
 
-    handleFieldChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
+    validatePassword = (event) => {
+        event.preventDefault()
+
+        const password = this.state.password
+        const passwordConfirm = this.state.passwordConfirm
+
+        if (password === passwordConfirm ) {
+            this.handleSubmit()
+        }
+        else {
+            return (
+              <div>
+                  {/* Mensagem  "As senhas não conferem"*/}
+              </div>
+            )
+        }
+            
+
+        this.clearNewTaskValue();
+    };
+
+    clearNewTaskValue = () => {
+        this.setState({ name: "", email: "", cpf: "", password: "", passwordConfirm: ""});
     };
 
 
+    handleSubmit = () => {
+
+        const { name, email, cpf, password } = this.state
+
+        this.props.createdUser(name, email, cpf, password)
+
+    };
 
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
@@ -51,16 +84,32 @@ class SignUpPage extends React.Component {
         this.setState(state => ({ showPasswordConfirm: !state.showPasswordConfirm }));
     };
 
-    render() {
-        
-        const { name, email,cpf, password, passwordConfirm } = this.setState;
+    handleFieldChangeName = (event) => {
+        this.setState({ name: event.target.value })
+    }
 
-        return(
-            
+    handleFieldChangeEmail = (event) => {
+        this.setState({ email: event.target.value })
+    }
+
+    handleFieldChangePassword = (event) => {
+        this.setState({ password: event.target.value })
+    }
+
+    handleFieldChangePasswordConfirm = (event) => {
+        this.setState({ passwordConfirm: event.target.value })
+    }
+
+    render() {
+
+        const { name, cpf, email, password, passwordConfirm } = this.state;
+
+        return (
+
             <div>
                 <Header title={''} isArrowBackVisible={true} />
 
-                <ContainerSignUpPage>
+                <ContainerSignUpPage onSubmit={this.validatePassword}>
                     <ImgLogo src={imgIcon.logo} alt="logo" />
 
                     <TextRegister>Cadastrar</TextRegister>
@@ -75,11 +124,10 @@ class SignUpPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        onChange={this.handleFieldChange}
+                        onChange={this.handleFieldChangeName}
                         name="name"
-                        type="name"
+                        type="text"
                         value={name}
-
                     />
 
                     <InputEmail
@@ -92,7 +140,7 @@ class SignUpPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        onChange={this.handleFieldChange}
+                        onChange={this.handleFieldChangeEmail}
                         name="email"
                         type="email"
                         value={email}
@@ -108,10 +156,12 @@ class SignUpPage extends React.Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        onChange={this.handleFieldChange}
+
+                        onChange={this.handleFieldChangeCPF}
                         name="cpf"
-                        type="cpf"
+                        type="text"
                         value={cpf}
+                        title="O CPF deve conter esse formato 000.000.000-00"
                     />
 
                     <InputPassword
@@ -136,10 +186,14 @@ class SignUpPage extends React.Component {
                                 </InputAdornment>
                             ),
                         }}
-                        onChange={this.handleFieldChange}
+                        inputProps={{
+                            minlength: "6"
+                        }}
+                        onChange={this.handleFieldChangePassword}
                         name="passwordSignUp"
                         type={this.state.showPassword ? 'text' : 'password'}
                         value={password}
+                        title="A senha deve ter no mínimo 6 caracteres"
                     />
 
 
@@ -165,13 +219,13 @@ class SignUpPage extends React.Component {
                                 </InputAdornment>
                             ),
                         }}
-                        onChange={this.handleFieldChange}
+                        onChange={this.handleFieldChangePasswordConfirm}
                         name="passwordConfirm"
-                        type={this.state.showPassword ? 'text' : 'password'}
+                        type={this.state.showPasswordConfirm ? 'text' : 'password'}
                         value={passwordConfirm}
                     />
 
-                    <MainButtonComponent title="Criar" />
+                    <MainButtonComponent title="Criar" type="submit" />
 
                 </ContainerSignUpPage>
             </div>
@@ -179,15 +233,14 @@ class SignUpPage extends React.Component {
     };
 };
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
     return {
-        doSignUp: (name, email, cpf, password) => dispatch(signUp(name, email, cpf, password)),
-        goToAddress: () => dispatch(push(routes.adress))
+        createdUser: (name, email, cpf, password) => dispatch(signUp(name, email, cpf, password)),
     }
 }
 export default connect(
     null,
-    mapDispatchToProps)
-    (SignUpPage);
+    mapDispatchToProps
+    )(SignUpPage);
 
 
