@@ -1,20 +1,56 @@
 import React from "react";
 import Header from '../../components/Header';
 import MainButtonComponent from '../../components/MainButton'
-import { ContainerEditAddressPage, InputAddress, InputNumber, InputHouse, InputNeighborhood, InputCity, InputState} from './styled';
-
+import { ContainerEditAddressPage, InputAddress, InputNumber, InputHouse, InputNeighborhood, InputCity, InputState } from './styled';
+import { connect } from 'react-redux';
 
 class EditAddressPage extends React.Component {
     constructor() {
         super();
         this.state = {
-        
+            street: "",
+            number: "",
+            neighbourhood: "",
+            city: "",
+            state: "",
+            complement: ""
         }
     }
 
+    componentDidMount() {
+
+        const myAddress = this.props.actualAddress
+        if(this.props.actualAddress){
+        const formatAddress = myAddress.split(",")
+        
+        console.log(formatAddress)
+    
+        this.setState({
+            street: formatAddress[0],
+            number: formatAddress[1],
+            neighbourhood: "",
+            city: "",
+            state: "",
+            complement: ""
+        })
+    }
+    }
+
+    hendleInput = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
     render() {
-        return(
-            
+
+        const {street,
+            number,
+            neighbourhood,
+            city,
+            state,
+            complement,} = this.state
+
+        return (
+
             <div>
                 <Header title={'Endereço'} isArrowBackVisible={true} />
 
@@ -26,6 +62,7 @@ class EditAddressPage extends React.Component {
                         label="Logradouro"
                         margin="normal"
                         variant="outlined"
+                        value={street}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -43,7 +80,6 @@ class EditAddressPage extends React.Component {
                     />
 
                     <InputHouse
-                        required
                         id="outlined-required-cpf"
                         label="Complemento"
                         margin="normal"
@@ -95,4 +131,9 @@ class EditAddressPage extends React.Component {
         );
     };
 };
-export default EditAddressPage;
+
+const mapStateToProps = state => ({
+    actualAddress: state.requests.actualProfile.address
+})
+
+export default connect(mapStateToProps, null)(EditAddressPage);

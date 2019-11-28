@@ -21,7 +21,7 @@ class AddressPage extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentWillUnmount(){
         this.props.getProfile()
     }
 
@@ -109,7 +109,6 @@ class AddressPage extends React.Component {
                     />
 
                     <InputHouse
-                        required
                         id="outlined-required-neighbourhood"
                         label="Complemento"
                         placeholder="Apto. / Bloco"
