@@ -37,7 +37,7 @@ function Router(props) {
         <PrivateRoute path={routes.detail} component={RestaurantDetail} />
         <PrivateRoute path={routes.cart} component={Cart} />
         <PrivateRoute path={routes.feed} component={Feed} />
-        <Route path={routes.address} component={AddressPage} />
+        <PrivateRoute path={routes.address} component={AddressPage}/>
         <Route path={routes.signUp} component={SignUpPage} />
         <Route path={routes.login} component={LoginPage} />
       </Switch>

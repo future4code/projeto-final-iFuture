@@ -1,20 +1,60 @@
 import React from "react";
 import Header from '../../components/Header';
 import MainButtonComponent from '../../components/MainButton'
-import { ContainerEditAddressPage, InputAddress, InputNumber, InputHouse, InputNeighborhood, InputCity, InputState} from './styled';
-
+import { ContainerEditAddressPage, InputAddress, InputNumber, InputHouse, InputNeighborhood, InputCity, InputState } from './styled';
+import { connect } from 'react-redux';
+import { signUpAddress } from '../../actions/auth'
+import { routes } from "../Router";
+import { push } from "connected-react-router";
 
 class EditAddressPage extends React.Component {
     constructor() {
         super();
         this.state = {
-        
+            street: "",
+            number: "",
+            neighbourhood: "",
+            city: "",
+            state: "",
+            complement: ""
         }
     }
 
+    componentDidMount() {
+        if (this.props.actualAddress) {
+            const { street, state, city, complement, number, neighbourhood } = this.props.actualAddress
+
+            this.setState({
+                street: street,
+                number: number,
+                neighbourhood: neighbourhood,
+                city: city,
+                state: state,
+                complement: complement
+            })
+        }
+    }
+
+    saveAddressChange = () => {
+        const { street, state, city, complement, number, neighbourhood } = this.state
+        this.props.changeAddress(street, number, neighbourhood, city, state, complement, 'edit/address')
+    }
+
+    hendleInput = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
     render() {
-        return(
-            
+
+        const { street,
+            number,
+            neighbourhood,
+            city,
+            state,
+            complement, } = this.state
+
+        return (
+
             <div>
                 <Header title={'Endereço'} isArrowBackVisible={true} />
 
@@ -26,6 +66,9 @@ class EditAddressPage extends React.Component {
                         label="Logradouro"
                         margin="normal"
                         variant="outlined"
+                        value={street}
+                        onChange={this.hendleInput}
+                        name="street"
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -37,17 +80,23 @@ class EditAddressPage extends React.Component {
                         label="Número"
                         margin="normal"
                         variant="outlined"
+                        type="number"
+                        value={number}
+                        name="number"
+                        onChange={this.hendleInput}
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
 
                     <InputHouse
-                        required
                         id="outlined-required-cpf"
                         label="Complemento"
                         margin="normal"
                         variant="outlined"
+                        value={complement}
+                        name="complement"
+                        onChange={this.hendleInput}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -59,6 +108,9 @@ class EditAddressPage extends React.Component {
                         label="Bairro"
                         margin="normal"
                         variant="outlined"
+                        value={neighbourhood}
+                        name="neighbourhood"
+                        onChange={this.hendleInput}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -71,6 +123,9 @@ class EditAddressPage extends React.Component {
                         label="Cidade"
                         margin="normal"
                         variant="outlined"
+                        value={city}
+                        name="city"
+                        onChange={this.hendleInput}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -83,16 +138,29 @@ class EditAddressPage extends React.Component {
                         label="Estado"
                         margin="normal"
                         variant="outlined"
+                        value={state}
+                        name="state"
+                        onChange={this.hendleInput}
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
 
-                    <MainButtonComponent title="Salvar" />
+                    <MainButtonComponent onButtonClick={this.saveAddressChange} title="Salvar" />
 
                 </ContainerEditAddressPage>
             </div>
         );
     };
 };
-export default EditAddressPage;
+
+const mapStateToProps = state => ({
+    actualAddress: state.requests.actualAddress
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    changeAddress: (street, number, neighbourhood, city, state, complement, local) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement, local)),
+    goToProfile: () => dispatch(push(routes.profile)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditAddressPage);

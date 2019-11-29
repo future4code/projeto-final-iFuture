@@ -31,6 +31,7 @@ export const CardImage = styled.img`
     height: 120px;
     object-fit: fill;
     margin-bottom:12px;
+    border-radius:8px 8px 0 0;
 `
 
 export const CardTitle = styled.span`

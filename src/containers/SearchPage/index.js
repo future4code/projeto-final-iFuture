@@ -1,9 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import { routes } from '../Router';
-import { fecthRestaurants } from '../../actions/fetchRestaurants';
+import {
+  fecthRestaurants,
+  setSelectedRestaurantDetails
+} from '../../actions/fetchRestaurants';
 import RestaurantCard from '../../components/RestaurantCard';
 import {
   ContainerSearch,
@@ -19,7 +20,8 @@ class SearchPage extends React.Component {
     this.state = {
       filteredRestaurants: [],
       inputValue: '',
-      textSearchPage: 'Busque por nome de restaurante'
+      textSearchPage: 'Busque por nome de restaurante',
+      loading: true
     };
   }
 
@@ -62,6 +64,9 @@ class SearchPage extends React.Component {
     return this.state.filteredRestaurants.map(restaurant => {
       return (
         <RestaurantCard
+          onClick={() => {
+            this.props.getRestaurantDetail(restaurant.id);
+          }}
           key={restaurant.id}
           logoUrl={restaurant.logoUrl}
           name={restaurant.name}
@@ -86,12 +91,11 @@ class SearchPage extends React.Component {
               autoFocus={true}
             />
           </ContainerSearch>
-
           <TextSearchPage>{this.state.textSearchPage}</TextSearchPage>
         </ContainerSearchPage>
         <div>
           {this.state.inputValue === ''
-            ?  null
+            ? null
             : this.renderFilteredRestaurants()}
         </div>
       </div>
@@ -106,7 +110,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getAllRestaurants: () => dispatch(fecthRestaurants())
+  getAllRestaurants: () => dispatch(fecthRestaurants()),
+  getRestaurantDetail: restaurantId =>
+    dispatch(setSelectedRestaurantDetails(restaurantId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
