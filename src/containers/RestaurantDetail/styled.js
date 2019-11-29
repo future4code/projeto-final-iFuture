@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div``;
+
+export const ButtonContainer = styled.div`
+  position:sticky;
+  bottom:8px;
+  width:100%;
+`;
+
 export const PrincipalDish = styled.p`
   font-size: 16px;
   letter-spacing: -0.39px;
