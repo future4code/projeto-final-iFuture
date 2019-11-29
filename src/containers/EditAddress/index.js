@@ -37,7 +37,7 @@ class EditAddressPage extends React.Component {
 
     saveAddressChange = () => {
         const { street, state, city, complement, number, neighbourhood } = this.state
-        this.props.changeAddress(street, state, city, complement, number, neighbourhood, 'edit/address')
+        this.props.changeAddress(street, number, neighbourhood, city, state, complement, 'edit/address')
     }
 
     hendleInput = event => {
