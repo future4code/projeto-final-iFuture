@@ -5,11 +5,17 @@ import { Container, Title, StyledArrow, StyledExitToAppIcon } from './styled';
 import { routes } from '../../containers/Router';
 
 const Header = ({ title, isArrowBackVisible, goBackPage, goToLogin, isExitVisible }) => {
+  
+  const doLogout  = () => {
+    window.localStorage.removeItem('token')
+    goToLogin()
+  }
+  
   return (
     <Container>
       {isArrowBackVisible && <StyledArrow onClick={goBackPage} />}
       <Title>{title}</Title>
-      {isExitVisible && <StyledExitToAppIcon onClick={goToLogin}/>}
+      {isExitVisible && <StyledExitToAppIcon onClick={doLogout}/>}
     </Container>
   );
 };
