@@ -1,4 +1,4 @@
-import auth from './requests'
+import auth from './auth'
 
 const mockMsg = 'Error'
 
@@ -11,7 +11,7 @@ describe("Auth Reducer", () => {
             }
         };
         const newState = auth(undefined, testAction);
-        expect(newState.loginError).toBe(undefined);
+        expect(newState.loginError).toBe(mockMsg);
     })
     test("CLEAR_ERROR_MESSAGE", () => {
         const testAction = {
