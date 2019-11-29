@@ -11,11 +11,15 @@ import {
   CardDeliveryAdress,
   CardDeliveryCategory,
   CardImage,
-  WrapperPrincipalDish
+  WrapperPrincipalDish,
+  ButtonContainer
 } from './styled';
 import FoodCard from '../../components/FoodCard/';
 import { connect } from 'react-redux';
 import PopUp from '../../components/PopUpAddCart';
+import MainButtonComponent from '../../components/MainButton'
+import { routes } from '../Router'
+import { push } from 'connected-react-router';
 
 const RestaurantDetail = props => {
   const [showedPopUp, setShowedPopUp] = useState(false);
@@ -43,11 +47,16 @@ const RestaurantDetail = props => {
     }
   };
 
+  const filteredList = props.selectedProductList.filter(prod => {
+    return prod.amount !== 0
+  })
+
+
   const popUp = showedPopUp ? (
     <PopUp showPopUpAddCart={showPopUpAddCart} actualId={actualId} />
   ) : (
-    <div></div>
-  );
+      <div></div>
+    );
 
   const { currentRestaurant, selectedProductList } = props;
 
@@ -90,9 +99,13 @@ const RestaurantDetail = props => {
                 }
               })}
             </WrapperPrincipalDish>
+
           </div>
         );
       })}
+      <ButtonContainer>
+        {filteredList.length > 0 && <MainButtonComponent onButtonClick={props.goToCart} title="Ver Carrinho" />}
+      </ButtonContainer>
     </Wrapper>
   );
 };
@@ -103,4 +116,8 @@ const mapStateToProps = state => ({
   selectedProductList: state.restaurants.selectedProductList
 });
 
-export default connect(mapStateToProps, null)(RestaurantDetail);
+const mapDispatchToProps = dispatch => ({
+  goToCart: () => dispatch(push(routes.cart)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantDetail);
