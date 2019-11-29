@@ -9,8 +9,8 @@ import MainButtonComponent from '../../components/MainButton'
 import { ContainerAddressPage, TextRegister, InputAddress, InputNumber, InputHouse, InputNeighborhood, InputCity, InputState} from './styled';
 
 class AddressPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             street: "",
             number: "",
@@ -23,18 +23,6 @@ class AddressPage extends React.Component {
 
     componentDidMount(){
         this.props.getProfile()
-        if(this.props.actualProfile.hasAddress){
-           this.props.goToFeed()
-        }
-    }
-    componentDidUpdate(){
-        if(this.props.actualProfile.hasAddress){
-            this.props.goToFeed()
-         }
-    }
-
-    componentWillUnmount(){
-        this.props.getProfile()
     }
 
     handleSubmit = (event) => {
@@ -42,9 +30,7 @@ class AddressPage extends React.Component {
 
         const { street, number, neighbourhood, city, state, complement } = this.state
 
-        this.props.createdAddress(street, number, neighbourhood, city, state, complement)
-
-        this.clearNewTaskValue();
+        this.props.createdAddress(street, number, neighbourhood, city, state, complement, 'address')
     }
 
     clearNewTaskValue = () => {
@@ -200,7 +186,7 @@ const mapStateToProps = state =>({
 
 function mapDispatchToProps(dispatch) {
     return {
-        createdAddress: (street, number, neighbourhood, city, state, complement) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement)),
+        createdAddress: (street, number, neighbourhood, city, state, complement, local) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement, local)),
         goToFeed: () => dispatch(push(routes.feed)),
         getProfile: () => dispatch(getProfile())
     }

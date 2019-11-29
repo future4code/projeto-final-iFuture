@@ -60,25 +60,27 @@ export const Cart = props => {
   const subTotal = previousPrice + Number(totalShipping);
 
   const payOrder = () => {
-    let newFilteredList = [];
-    for (let filteredProduct of filteredProductsByAmount) {
-      const newObjProduct = {
-        id: filteredProduct.id,
-        quantity: filteredProduct.amount
-      };
-      newFilteredList.push(newObjProduct);
-    }
-    let paymentType;
+    if (filteredProductsByAmount.length > 0) {
+      let newFilteredList = [];
+      for (let filteredProduct of filteredProductsByAmount) {
+        const newObjProduct = {
+          id: filteredProduct.id,
+          quantity: filteredProduct.amount
+        };
+        newFilteredList.push(newObjProduct);
+      }
+      let paymentType;
 
-    if (checkBoxChecked.cash) {
-      paymentType = 'money';
-    } else if (checkBoxChecked.creditcard) {
-      paymentType = 'creditcard';
-    } else {
-      paymentType = 'nao informado';
-    }
+      if (checkBoxChecked.cash) {
+        paymentType = "money"
+      } else if (checkBoxChecked.creditcard) {
+        paymentType = "creditcard"
+      } else {
+        paymentType = "nao informado"
+      }
 
-    props.placeOrder(newFilteredList, paymentType, props.selectRestaurant.id);
+      props.placeOrder(newFilteredList, paymentType, props.selectRestaurant.id);
+    }
   };
 
   return (
@@ -95,14 +97,14 @@ export const Cart = props => {
       {filteredProductsByAmount.length === 0 ? (
         <EmptyCart>Carrinho Vazio</EmptyCart>
       ) : (
-        <RestaurantDetailContainer>
-          <Typography component="p" variant="subtitle2" color="primary">
-            {props.selectRestaurant.name}
-          </Typography>
-          <RestaurantAdress>{props.selectRestaurant.address}</RestaurantAdress>
-          <WaitingTime>{props.selectRestaurant.deliveryTime} min</WaitingTime>
-        </RestaurantDetailContainer>
-      )}
+          <RestaurantDetailContainer>
+            <Typography component="p" variant="subtitle2" color="primary">
+              {props.selectRestaurant.name}
+            </Typography>
+            <RestaurantAdress>{props.selectRestaurant.address}</RestaurantAdress>
+            <WaitingTime>{props.selectRestaurant.deliveryTime} min</WaitingTime>
+          </RestaurantDetailContainer>
+        )}
       {props.selectedProductList.map((productOnCart, index) => {
         if (productOnCart.amount !== 0) {
           return <FoodCard key={index} foodInfo={productOnCart} />;
@@ -110,8 +112,7 @@ export const Cart = props => {
       })}
       <PriceContainer>
         <FreightPrice component="p" variant="subtitle2" color="secondary">
-          Frete R${' '}
-          {filteredProductsByAmount.length > 0 ? totalShipping : '0.00'}
+          Frete R$ {filteredProductsByAmount.length > 0 ? totalShipping : '0.00'}
         </FreightPrice>
         <FinalPriceContainer>
           <Typography
@@ -123,10 +124,7 @@ export const Cart = props => {
             SUBTOTAL
           </Typography>
           <TotalText>
-            R${' '}
-            {filteredProductsByAmount.length > 0
-              ? subTotal.toFixed(2)
-              : '00.00'}
+            R$ {filteredProductsByAmount.length > 0 ? subTotal.toFixed(2) : '00.00'}
           </TotalText>
         </FinalPriceContainer>
       </PriceContainer>

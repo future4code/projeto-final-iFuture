@@ -3,6 +3,7 @@ import Header from '../../components/Header';
 import MainButtonComponent from '../../components/MainButton'
 import { ContainerProfilePage, InputName, InputEmail, InputCPF } from './styled';
 import { connect } from 'react-redux';
+import { updateProfile } from '../../actions/auth'
 
 class ProfileEditPage extends React.Component {
     constructor() {
@@ -33,6 +34,11 @@ class ProfileEditPage extends React.Component {
         }else{
         this.setState({[event.target.name]:event.target.value})
         }
+    }
+
+    changeProfile=()=>{
+        const {name, email, cpf} = this.state
+        this.props.updateProfile(name, email, cpf)
     }
 
     render() {
@@ -87,7 +93,7 @@ class ProfileEditPage extends React.Component {
                         }}
                     />
 
-                    <MainButtonComponent title="Salvar" />
+                    <MainButtonComponent onButtonClick={this.changeProfile} title="Salvar" />
 
                 </ContainerProfilePage>
             </div>
@@ -99,4 +105,8 @@ const mapStateToProps = state =>({
     actualProfile: state.requests.actualProfile
 })
 
-export default connect(mapStateToProps, null) (ProfileEditPage);
+const mapDispatchToProps = dispatch =>({
+    updateProfile: (name, email, cpf)=>dispatch(updateProfile(name, email, cpf)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps) (ProfileEditPage);

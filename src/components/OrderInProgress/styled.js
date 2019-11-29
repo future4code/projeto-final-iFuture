@@ -5,17 +5,12 @@ export const Wrapper = styled.div`
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,800&display=swap');
   font-family: "Montserrat", sans-serif;
   position: fixed;
-  bottom: 0;
+  bottom: 50px;
   display: flex;
   flex-direction: column;
   & p:not(:last-child) {
 		margin-bottom: 8px;
   }
-	& p {
-		margin-top: 0;
-		margin-bottom: 0;
-	}
-  margin-bottom:50px;
 `;
 
 export const Rectangle = styled.div`
