@@ -45,6 +45,8 @@ class AddressPage extends React.Component {
         this.props.createdAddress(street, number, neighbourhood, city, state, complement)
 
         this.clearNewTaskValue();
+
+        this.props.goToFeed()
     }
 
     clearNewTaskValue = () => {

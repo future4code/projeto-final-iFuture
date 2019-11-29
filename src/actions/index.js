@@ -18,6 +18,13 @@ export const setProfile = (profile) => ({
     }
 })
 
+export const setAddress = (address) => ({
+    type: 'SET_ADDRESS',
+    payload: {
+        address
+    }
+})
+
 export const removeAmount = (idToRemove) => ({
     type: 'REMOVE_AMOUNT',
     payload: {
@@ -55,6 +62,18 @@ export const getProfile = () => async (dispatch) => {
 
     })
     dispatch(setProfile(response.data.user))
+}
+
+export const getFullAddress = () => async (dispatch) => {
+    const token = window.localStorage.getItem("token");
+
+    const response = await axios.get(`${urlBase}/profile/address`, {
+        headers: {
+            auth: token
+        }
+
+    })
+    dispatch(setAddress(response.data.address))
 }
 
 export const getActiveOrder = () => async (dispatch) => {

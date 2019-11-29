@@ -13,7 +13,7 @@ export const login = (email, password) => async dispatch => {
     );
     window.localStorage.setItem('token', response.data.token)
     dispatch(push(routes.feed));
-} 
+}
 
 export const signUp = (name, email, cpf, password) => async dispatch => {
     const newUser = {
@@ -47,16 +47,34 @@ export const signUpAddress = (street, number, neighbourhood, city, state, comple
 
     const response = await axios.put(
         `${urlBase}/address`, newAddress, {
-            headers: {
-                auth: token
-            }
+        headers: {
+            auth: token
         }
+    }
     );
 
     window.localStorage.setItem('token', response.data.token);
+}
+
+export const updateProfile = (name, email, cpf) => async dispatch => {
+    const newProfile = {
+        name, 
+        email, 
+        cpf
+    }
+
+    const token = window.localStorage.getItem('token');
+
+    const response = await axios.put(
+        `${urlBase}/profile`, newProfile, {
+        headers: {
+            auth: token
+        }
+    }
+    );
 
     if (response.status === 200) {
-        dispatch(push(routes.feed))
+        dispatch(push(routes.profile))
     }
 }
 

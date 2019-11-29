@@ -5,7 +5,7 @@ import Edit from '@material-ui/icons/Edit';
 import NavBar from '../../components/NavBar';
 import CartCard from "../../components/CartCard";
 import { connect } from 'react-redux'
-import { getProfile, getOrdersHistory } from '../../actions'
+import { getProfile, getOrdersHistory, getFullAddress } from '../../actions'
 import { routes } from "../Router";
 import { push } from "connected-react-router";
 
@@ -14,6 +14,7 @@ const ProfilePage = (props) => {
     useEffect(() => {
         props.getOrdersHistory()
         props.getProfile()
+        props.getFullAddress()
     }, [])
 
     const { actualProfile, allOrders } = props
@@ -66,6 +67,7 @@ const mapDispatchToProps = dispatch => ({
     getProfile: () => dispatch(getProfile()),
     goToProfileEditPage: () => dispatch(push(routes.editSignUp)),
     goToAddressProfileEditPage: () => dispatch(push(routes.editAdress)),
+    getFullAddress: () => dispatch(getFullAddress()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)
