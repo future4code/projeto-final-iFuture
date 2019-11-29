@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Header from "../../components/Header";
 import { ProfileContainer, ProfileText, ProfileFlexDiv, AdressContainer, AdressTitle, HistoryContainer, HistoryTitleContainer, HistoryText, AddressText } from './styled'
 import Edit from '@material-ui/icons/Edit';
@@ -29,7 +29,7 @@ const ProfilePage = (props) => {
 
     return (
         <div>
-            <Header isArrowBackVisible={false} title="Meu Perfil" />
+            <Header isArrowBackVisible={false} isExitVisible={true} title="Meu Perfil" />
             <ProfileContainer>
                 <ProfileFlexDiv>
                     <ProfileText>{actualProfile.name}</ProfileText>

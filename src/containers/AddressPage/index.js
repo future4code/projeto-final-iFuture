@@ -82,7 +82,7 @@ class AddressPage extends React.Component {
         return(
 
             <div>
-                <Header title={''} isArrowBackVisible={true} />
+                <Header title={''} isArrowBackVisible={true}/>
 
                 <ContainerAddressPage onSubmit={this.handleSubmit}>
             

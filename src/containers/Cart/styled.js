@@ -90,3 +90,7 @@ export const EmptyCart = styled.p`
   color: #000000;
   margin-top: 20px;
 `;
+
+export const Error = styled.p`
+  color: red;
+`
