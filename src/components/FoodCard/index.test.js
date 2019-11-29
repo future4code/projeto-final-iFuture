@@ -1,53 +1,78 @@
 import React from 'react'
-import { shallow } from 'enzyme';
-import { renderer } from 'react-test-renderer';
-import { FoodCard } from './index';
+import renderer from 'react-test-renderer';
 import { StyledCard, FlexDiv, StyledCardMedia, CardContent, 
-    TypographyTitle, RequestQuantityWrapper,  TypographyDescription, 
-    TypographyValue, TypographyButtonText, AddRequestButton } 
+    TypographyTitle,  TypographyDescription, TypographyValue, 
+    TypographyButtonText, AddRequestButton } 
 from './styled';
 
-const mockFoodInfo = {
-    amount: 0,
-    id: 1,
-    photoUrl: "photo",
-    name: "name",
-    description: "description",
-    price: 0,
-}
-
-describe("Request", () => {
-    it.skip("Add Request", () => {
-        const mockAddRequestFunction = jest.fn();
-        
-        const component = shallow(
-            <FoodCard 
-                foodInfo={mockFoodInfo} 
-                onClickAddRequestButton={mockAddRequestFunction}
-            />
-        );
-        const addRequestButton = component.find(AddRequestButton);
-        
-        
-        expect(AddRequestButton).toHaveLength(1);
-        addRequestButton.simulate('click');
-        expect(mockAddRequestFunction).toHaveBeenCalled()
+describe("AddRequestButton", () => {
+    it("Should match Snapshot", () => { 
+        const tree = renderer
+        .create(<AddRequestButton />).toJSON();
+        expect(tree).toMatchSnapshot()
     })
+})
 
-    it.skip("Data flow", () => {
-        const component = shallow(<FoodCard foodInfo={mockFoodInfo} />);
-        const foodImage = component.find(StyledCardMedia);
-        const foodTitle = component.find(TypographyTitle);
-        const foodDescription = component.find(TypographyDescription);
-        const foodPrice = component.find(TypographyValue);
-        const requestButton = component.find(AddRequestButton);
-        const buttonText = component.find(TypographyButtonText);
+describe("StyledCard", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<StyledCard />).toJSON();
+        expect(tree).toMatchSnapshot()
+    })
+})
 
-        expect(foodImage.props().image).toBe(mockFoodInfo.photoUrl);
-        expect(foodTitle.props().children).toBe(mockFoodInfo.name);
-        expect(foodDescription.props().children).toBe(mockFoodInfo.description);
-        expect(foodPrice.props().children).toBe(mockFoodInfo.price);
-        expect(requestButton.props().borderColor).toBe(mockFoodInfo.amount);
-        expect(buttonText.props().children).toBe(mockFoodInfo.amount);
+describe("StyledCardMedia", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<StyledCardMedia />).toJSON();
+        expect(tree).toMatchSnapshot()
+    })
+})
+
+describe("CardContent", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<CardContent />).toJSON();
+        expect(tree).toMatchSnapshot()
+    })
+})
+
+describe("FlexDiv", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<FlexDiv />).toJSON();
+        expect(tree).toMatchSnapshot()
+    })
+})
+
+describe("TypographyTitle", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<TypographyTitle />).toJSON();
+        expect(tree).toMatchSnapshot()
+    })
+})
+
+describe("TypographyDescription", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<TypographyDescription />).toJSON();
+        expect(tree).toMatchSnapshot()
+    })
+})
+
+describe("TypographyValue", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<TypographyValue />).toJSON();
+        expect(tree).toMatchSnapshot()
+    })
+})
+
+describe("TypographyButtonText", () => {
+    it("Should match Snapshot", () => {
+        const tree = renderer
+        .create(<TypographyButtonText />).toJSON();
+        expect(tree).toMatchSnapshot()
     })
 })
