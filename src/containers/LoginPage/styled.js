@@ -43,4 +43,6 @@ export const GoToSignUp = styled.a `
     color: black;
 `
 
-
+export const ErrorMessage = styled.p`
+    color: red;
+`

@@ -24,7 +24,8 @@ class Feed extends React.Component {
     super(props);
     this.state = {
       filterIsSelected: false,
-      selectedFilter: 'All'
+      selectedFilter: 'All',
+      loading: true
     };
   }
 
@@ -38,7 +39,8 @@ class Feed extends React.Component {
     if (!token) {
       this.props.goToLoginPage()
     }
-  };
+   
+}
 
   componentDidUpdate(prevProps){
     if(prevProps.actualProfile !== this.props.actualProfile){
