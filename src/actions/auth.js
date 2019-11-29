@@ -5,19 +5,42 @@ import { setProfile } from './index'
 
 const urlBase = 'https://us-central1-missao-newton.cloudfunctions.net/iFuture';
 
+const setErrorMessageAction = message => {
+    return {
+        type: 'SET_ERROR_MESSAGE',
+        payload: {
+            message
+        }
+    };
+};
+
+const clearErrorMessageAction = () => {
+    return {
+        type: 'CLEAR_ERROR_MESSAGE'
+    };
+};
+
 export const login = (email, password) => async dispatch => {
+    try {
+        dispatch(clearErrorMessageAction());
+        const body = { email, password }
 
-    const body = { email, password }
+        const response = await axios.post(
+            `${urlBase}/login`, body
+        );
 
-    const response = await axios.post(
-        `${urlBase}/login`, body
-    );
-    
-    window.localStorage.setItem('token', response.data.token)
-    dispatch(setProfile(response.data.user))
+        window.localStorage.setItem('token', response.data.token)
+        dispatch(setProfile(response.data.user))
 
-    if (response.status === 200) {
-        dispatch(push(routes.feed));
+        if (response.status === 200) {
+            dispatch(push(routes.feed));
+        }
+    } catch (e) {
+        let error = e.message;
+        if (error) {
+            error = 'email ou senha inválidos';
+        }
+        dispatch(setErrorMessageAction(error));
     }
 }
 

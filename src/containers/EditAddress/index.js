@@ -35,7 +35,7 @@ class EditAddressPage extends React.Component {
         }
     }
 
-    saveAddressChange=()=>{
+    saveAddressChange = () => {
         const { street, state, city, complement, number, neighbourhood } = this.state
         this.props.changeAddress(street, state, city, complement, number, neighbourhood, 'edit/address')
     }
@@ -80,6 +80,7 @@ class EditAddressPage extends React.Component {
                         label="Número"
                         margin="normal"
                         variant="outlined"
+                        type="number"
                         value={number}
                         name="number"
                         onChange={this.hendleInput}
@@ -157,11 +158,9 @@ const mapStateToProps = state => ({
     actualAddress: state.requests.actualAddress
 })
 
-function mapDispatchToProps(dispatch) {
-    return {
-        changeAddress: (street, number, neighbourhood, city, state, complement, local) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement, local)),
-        goToProfile: () => dispatch(push(routes.profile)),
-    }
+const mapDispatchToProps = (dispatch) => ({
+    changeAddress: (street, number, neighbourhood, city, state, complement, local) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement, local)),
+    goToProfile: () => dispatch(push(routes.profile)),
+})
 
-    }
 export default connect(mapStateToProps, mapDispatchToProps)(EditAddressPage);
