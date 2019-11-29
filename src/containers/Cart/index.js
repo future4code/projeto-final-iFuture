@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import {
     CartWrapper, DeliveryAdressContainer, DeliveryAdress,
     RestaurantDetailContainer, RestaurantAdress, WaitingTime,
-    FreightPrice, FinalPriceContainer, PriceContainer, PaymentContainer, TotalText, ButtonDiv, HeaderDiv
+    FreightPrice, FinalPriceContainer, PriceContainer, 
+    PaymentContainer, TotalText, ButtonDiv, HeaderDiv
 } from "./styled";
 import { Typography } from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
