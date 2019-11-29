@@ -25,7 +25,7 @@ export const StyledCardMedia = styled(CardMedia)`
 export const CardContent = styled.div`
     width: 70%;
     display: flex;
-    flex-direction:column
+    flex-direction:column;
     padding-left: 16px;
 `
 

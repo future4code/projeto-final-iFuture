@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-    StyledCard, CardContent, StyledCardMedia,
-    TypographyTitle, TypographyDescription, TypographyValue,
-    RequestQuantityWrapper, AddRequestButton, FlexDiv, TypographyButtonText
+    StyledCard, CardContent, StyledCardMedia, TypographyTitle, 
+    TypographyDescription, TypographyValue, RequestQuantityWrapper, 
+    AddRequestButton, FlexDiv, TypographyButtonText
 } from "./styled";
 import { Typography } from "@material-ui/core";
 import { removeAmount } from '../../actions'
@@ -11,9 +11,9 @@ import { connect } from 'react-redux'
 export const FoodCard = (props) => {
 
     const onClickAddRequestButton = () => {
-        if(props.foodInfo.amount === 0){
+        if (props.foodInfo.amount === 0) {
             props.showPopUpAddCart(props.foodInfo.id)
-        }else{
+        } else {
             props.removeAmount(props.foodInfo.id)
         }
     }
@@ -53,29 +53,26 @@ export const FoodCard = (props) => {
                     variant="caption"
                     color="initial"
                 >
-                    {/* 60 caracteres (para validação do imput de criação de comida) */}
                     {props.foodInfo.description}
                 </TypographyDescription>
                 <FlexDiv>
-                <TypographyValue
-                    component="p"
-                    variant="subtitle2"
-                    color="secondary"
-                >
-                    R$ {props.foodInfo.price.toFixed(2)}
-                </TypographyValue >
-                <AddRequestButton
-                    onClick={onClickAddRequestButton}
-                    borderColor={props.foodInfo.amount === 0 ? "black" : "#e8222e"}
-                >
-                    <TypographyButtonText
+                    <TypographyValue
+                        component="p"
+                        variant="subtitle2"
+                        color="secondary"
+                    >
+                        R$ {props.foodInfo.price.toFixed(2)}
+                    </TypographyValue >
+                    <AddRequestButton
+                        onClick={onClickAddRequestButton}
                         borderColor={props.foodInfo.amount === 0 ? "black" : "#e8222e"}
                     >
-                        {props.foodInfo.amount === 0 ? "adicionar" : "remover"}
-
-                    </TypographyButtonText >
-                    
-                </AddRequestButton>
+                        <TypographyButtonText
+                            borderColor={props.foodInfo.amount === 0 ? "black" : "#e8222e"}
+                        >
+                            {props.foodInfo.amount === 0 ? "adicionar" : "remover"}
+                        </TypographyButtonText >
+                    </AddRequestButton>
                 </FlexDiv>
             </CardContent>
         </StyledCard>
@@ -83,7 +80,7 @@ export const FoodCard = (props) => {
 }
 
 const mapDispatchToProps = dispatch =>({
-    removeAmount: (amountToRemove)=>dispatch(removeAmount(amountToRemove))
+    removeAmount: (amountToRemove) => dispatch(removeAmount(amountToRemove))
 })
 
 export default connect(null, mapDispatchToProps)(FoodCard)
