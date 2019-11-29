@@ -54,6 +54,10 @@ export const signUpAddress = (street, number, neighbourhood, city, state, comple
     );
 
     window.localStorage.setItem('token', response.data.token);
+
+    if (response.status === 200) {
+        dispatch(push(routes.feed))
+    }
 }
 
 export const updateProfile = (name, email, cpf) => async dispatch => {

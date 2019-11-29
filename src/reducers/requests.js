@@ -1,6 +1,6 @@
 const initialState = {
   allOrders: [],
-  actualProfile: "",
+  actualProfile: {hasAddress: false},
   actualOrder: null,
 }
 

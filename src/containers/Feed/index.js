@@ -32,21 +32,7 @@ class Feed extends React.Component {
     this.props.getAllRestaurants();
     this.props.getActiveOrder();
     this.props.getProfile();
-
-    const token = window.localStorage.getItem('token')
-    
-    if (!token) {
-      this.props.goToLoginPage()
-    }
   };
-
-  componentDidUpdate(prevProps){
-    if(prevProps.actualProfile !== this.props.actualProfile){
-      if (this.props.actualProfile.hasAddress === false) {
-        this.props.goToAddressPage()
-      }
-    }
-  }
 
   renderFilteredRestaurants = event => {
     if (this.state.selectedFilter === event.target.value) {
