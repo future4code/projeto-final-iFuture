@@ -38,7 +38,7 @@ export const login = (email, password) => async dispatch => {
     } catch (e) {
         let error = e.message;
         if (error) {
-            error = 'email ou senha inválidos';
+            error = 'Email ou senha inválidos';
         }
         dispatch(setErrorMessageAction(error));
     }
