@@ -37,8 +37,7 @@ class EditAddressPage extends React.Component {
 
     saveAddressChange=()=>{
         const { street, state, city, complement, number, neighbourhood } = this.state
-        this.props.changeAddress(street, state, city, complement, number, neighbourhood)
-        this.props.goToProfile()
+        this.props.changeAddress(street, state, city, complement, number, neighbourhood, 'edit/address')
     }
 
     hendleInput = event => {
@@ -160,7 +159,7 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
     return {
-        changeAddress: (street, number, neighbourhood, city, state, complement) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement)),
+        changeAddress: (street, number, neighbourhood, city, state, complement, local) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement, local)),
         goToProfile: () => dispatch(push(routes.profile)),
     }
 

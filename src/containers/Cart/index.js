@@ -60,28 +60,30 @@ export const Cart = props => {
   const subTotal = previousPrice + Number(totalShipping);
 
   const payOrder = () => {
-    let newFilteredList = [];
-    for (let filteredProduct of filteredProductsByAmount) {
-      const newObjProduct = {
-        id: filteredProduct.id,
-        quantity: filteredProduct.amount
-      };
-      newFilteredList.push(newObjProduct);
+    if (filteredProductsByAmount.length > 0) {
+      let newFilteredList = [];
+      for (let filteredProduct of filteredProductsByAmount) {
+        const newObjProduct = {
+          id: filteredProduct.id,
+          quantity: filteredProduct.amount
+        };
+        newFilteredList.push(newObjProduct);
+      }
+      let paymentType;
+
+      if (checkBoxChecked.cash) {
+        paymentType = "money"
+      } else if (checkBoxChecked.creditcard) {
+        paymentType = "creditcard"
+      } else {
+        paymentType = "nao informado"
+      }
+
+      props.placeOrder(newFilteredList, paymentType, props.selectRestaurant.id);
     }
-    let paymentType;
-
-        if(checkBoxChecked.cash){
-            paymentType = "money"
-        }else if(checkBoxChecked.creditcard){
-            paymentType = "creditcard"
-        }else{
-            paymentType = "nao informado"
-        }
-
-    props.placeOrder(newFilteredList, paymentType, props.selectRestaurant.id);
   };
 
-return (
+  return (
     <CartWrapper>
       <HeaderDiv>
         <Header title="Meu Carrinho" isArrowBackVisible={false} />
@@ -95,14 +97,14 @@ return (
       {filteredProductsByAmount.length === 0 ? (
         <EmptyCart>Carrinho Vazio</EmptyCart>
       ) : (
-        <RestaurantDetailContainer>
-          <Typography component="p" variant="subtitle2" color="primary">
-            {props.selectRestaurant.name}
-          </Typography>
-          <RestaurantAdress>{props.selectRestaurant.address}</RestaurantAdress>
-          <WaitingTime>{props.selectRestaurant.deliveryTime} min</WaitingTime>
-        </RestaurantDetailContainer>
-      )}
+          <RestaurantDetailContainer>
+            <Typography component="p" variant="subtitle2" color="primary">
+              {props.selectRestaurant.name}
+            </Typography>
+            <RestaurantAdress>{props.selectRestaurant.address}</RestaurantAdress>
+            <WaitingTime>{props.selectRestaurant.deliveryTime} min</WaitingTime>
+          </RestaurantDetailContainer>
+        )}
       {props.selectedProductList.map((productOnCart, index) => {
         if (productOnCart.amount !== 0) {
           return <FoodCard key={index} foodInfo={productOnCart} />;

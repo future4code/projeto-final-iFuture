@@ -12,13 +12,9 @@ const mapStateToProps = state => ({
 export const Authenticator = connect(mapStateToProps, null)((props) => {
 
     const token = window.localStorage.getItem('token')
-    console.log(token)
-    console.log(props.actualProfile)
     if (!token) {
-        console.log(!token)
         return (<Redirect to={{ pathname: routes.login, state: { from: props.location } }} />)
     } else if (!props.actualProfile.hasAddress && props.actualPage !== routes.address) {
-        console.log('address', !props.actualProfile.hasAddress)
         return (<Redirect to={ routes.address } />)
     } else {
         return props.children

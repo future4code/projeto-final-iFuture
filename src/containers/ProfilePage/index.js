@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { getProfile, getOrdersHistory, getFullAddress } from '../../actions'
 import { routes } from "../Router";
 import { push } from "connected-react-router";
+import Splash from '../../components/SplashPage';
 
 const ProfilePage = (props) => {
 
@@ -19,14 +20,22 @@ const ProfilePage = (props) => {
 
     const { actualProfile, allOrders } = props
 
-    const listOrders = allOrders.map((order, index) => {
-        return <CartCard
-            key={index}
-            title={order.restaurantName}
-            date={order.createdAt}
-            price={order.totalPrice}
-        />
-    })
+
+
+    if (!allOrders){
+        return (
+         <Splash/>
+       ) 
+        }else{
+
+            const listOrders = allOrders.map((order, index) => {
+                return <CartCard
+                    key={index}
+                    title={order.restaurantName}
+                    date={order.createdAt}
+                    price={order.totalPrice}
+                />
+            })
 
     return (
         <div>
@@ -55,6 +64,7 @@ const ProfilePage = (props) => {
             <NavBar/>
         </div>
     )
+        }
 }
 
 const mapStateToProps = state => ({

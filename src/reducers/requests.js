@@ -1,5 +1,4 @@
 const initialState = {
-  allOrders: [],
   actualProfile: {hasAddress: false},
   actualOrder: null,
 }

@@ -30,7 +30,7 @@ class AddressPage extends React.Component {
 
         const { street, number, neighbourhood, city, state, complement } = this.state
 
-        this.props.createdAddress(street, number, neighbourhood, city, state, complement)
+        this.props.createdAddress(street, number, neighbourhood, city, state, complement, 'address')
     }
 
     clearNewTaskValue = () => {
@@ -186,7 +186,7 @@ const mapStateToProps = state =>({
 
 function mapDispatchToProps(dispatch) {
     return {
-        createdAddress: (street, number, neighbourhood, city, state, complement) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement)),
+        createdAddress: (street, number, neighbourhood, city, state, complement, local) => dispatch(signUpAddress(street, number, neighbourhood, city, state, complement, local)),
         goToFeed: () => dispatch(push(routes.feed)),
         getProfile: () => dispatch(getProfile())
     }

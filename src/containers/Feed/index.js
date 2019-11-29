@@ -18,6 +18,7 @@ import {
   fecthRestaurants,
   setSelectedRestaurantDetails
 } from '../../actions/fetchRestaurants';
+import Splash from '../../components/SplashPage';
 
 class Feed extends React.Component {
   constructor(props) {
@@ -50,7 +51,13 @@ class Feed extends React.Component {
 
   render() {
     const { allRestaurants } = this.props;
-    return (
+
+    if (allRestaurants.length === 0){
+     return (
+      <Splash/>
+    ) 
+     }else{
+     return (
       <Fragment>
         <WrapperFixedComponents>
           <Header title={'Ifuture'} isArrowBackVisible={false} />
@@ -105,7 +112,8 @@ class Feed extends React.Component {
         <NavBar />
       </Fragment>
     );
-  }
+  }}
+
 }
 
 const mapStateToProps = state => {
